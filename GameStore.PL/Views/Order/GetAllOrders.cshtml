@@ -1,0 +1,27 @@
+﻿@using GameStore.BLL.ModelVM.Order
+
+@model List<GetAllOrdersModel>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <p>@ViewBag.ErrorMessage</p>
+}
+else
+{
+    @foreach(var order in Model)
+    {
+        <p>Order Id : @order.OrderID</p>
+        <p>Owner :@order.UserName</p>
+        <p>Email : @order.UserEmail</p>
+        <p>Status : @order.Status</p>
+        <p>========================================</p>
+        @foreach(var item in order.OrderItem)
+        {
+            <p>Game Id = @item.GameId</p>
+            <p>Game Name = @item.Game.Title</p>
+            <p>Game price = @item.Game.Price</p>
+            <p>========================================</p>
+        }
+        <p>-------------------------------------------------------------------------</p>
+    }
+}
