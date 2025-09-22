@@ -6,6 +6,10 @@ namespace GameStore.DAL.DB
 {
     public class GameStoreContext : DbContext
     {
+        public GameStoreContext()
+        {
+        }
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer("Server=MOAZ;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
