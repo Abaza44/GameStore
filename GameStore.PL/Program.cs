@@ -28,6 +28,7 @@ builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 // Cookie Auth
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
