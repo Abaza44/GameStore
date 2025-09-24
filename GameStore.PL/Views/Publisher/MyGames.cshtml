@@ -1,0 +1,50 @@
+﻿@using GameStore.DAL.Entities
+@using GameStore.DAL.Enums
+@model IEnumerable<Game>
+
+@{
+    ViewData["Title"] = "My Games";
+}
+
+<div class="container">
+    <h2>🎮 My Uploaded Games</h2>
+
+    <p><a class="btn btn-primary" asp-action="UploadGame">+ Upload New Game</a></p>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Rejection Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>@game.Description</td>
+                    <td>$@game.Price</td>
+                    <td>
+                        @if (game.Status == GameStatus.Approved)
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else if (game.Status == GameStatus.Rejected)
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                    </td>
+                    <td>@game.RejectionReason</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

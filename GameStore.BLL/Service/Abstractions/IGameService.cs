@@ -1,6 +1,6 @@
 using GameStore.BLL.ModelVM.Game;
 
-namespace GameStore.BLL.Services.Abstractions
+namespace GameStore.BLL.Service.Abstractions
 {
     public interface IGameService
     {

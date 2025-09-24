@@ -1,6 +1,7 @@
-﻿using GameStore.BLL.Service.Implementations;
+﻿//using GameStore.BLL.Service.Implementations;
 using GameStore.BLL.Service.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using GameStore.BLL.Service.Abstractions;    // ✅ مش Service
 
 namespace GameStore.PL.Controllers
 {

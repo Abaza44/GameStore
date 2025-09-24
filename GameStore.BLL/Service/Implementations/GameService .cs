@@ -1,10 +1,10 @@
-﻿using GameStore.BLL.ModelVM.Game;
-using GameStore.BLL.Services.Abstractions;
+using GameStore.BLL.ModelVM.Game;
+using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using GameStore.DAL.Repo.Abstractions;
 
-namespace GameStore.BLL.Services.Implementations
+namespace GameStore.BLL.Service.Implementations
 {
     public class GameService : IGameService
     {

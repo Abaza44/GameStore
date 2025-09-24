@@ -1,5 +1,5 @@
-using GameStore.BLL.Services;
-using GameStore.BLL.Services.Implementations;
+using GameStore.BLL.Service;
+using GameStore.BLL.Service.Implementations;
 using GameStore.DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

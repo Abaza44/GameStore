@@ -1,44 +1,39 @@
-﻿using GameStore.DAL.DB;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Repo.Abstractions;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameStore.DAL.Repo.Implementations
+public class CategoryRepo : ICategoryRepo
 {
-    public class CategoryRepo : ICategoryRepo
+    private readonly GameStoreContext _context;
+
+    public CategoryRepo(GameStoreContext context)
     {
-        private readonly GameStoreContext _context;
+        _context = context;
+    }
 
-        public CategoryRepo(GameStoreContext context)
+    public Category GetById(int id) => _context.Categories.Find(id);
+
+    public IEnumerable<Category> GetAll() => _context.Categories.ToList();
+
+    public void Add(Category category)
+    {
+        _context.Categories.Add(category);
+        _context.SaveChanges();
+    }
+
+    public void Update(Category category)
+    {
+        _context.Categories.Update(category);
+        _context.SaveChanges();
+    }
+
+    public void Delete(int id)
+    {
+        var category = _context.Categories.Find(id);
+        if (category != null)
         {
-            _context = context;
-        }
-
-        public int GetCategoriesCount()
-        {
-            return this._context.Categories.Count();
-        }
-
-        public IEnumerable<Game> GetGamesCategory(string category)
-        {
-            if (string.IsNullOrWhiteSpace(category))
-                return Enumerable.Empty<Game>();
-
-            return _context.Categories.AsNoTracking().
-                Include(c => c.Games).Where(c => c.Name == category).SelectMany(c => c.Games);
-        }
-
-        public int GetGamesCountByCategory(string category)
-        {
-            if (string.IsNullOrWhiteSpace(category))
-                return 0;
-            return _context.Categories.AsNoTracking().
-                Include(c => c.Games).Where(c => c.Name == category).SelectMany(c => c.Games).Count();
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
         }
     }
 }

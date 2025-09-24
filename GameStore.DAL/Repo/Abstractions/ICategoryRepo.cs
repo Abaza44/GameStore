@@ -1,16 +1,14 @@
-﻿using GameStore.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.DAL.Entities;
+
 
 namespace GameStore.DAL.Repo.Abstractions
 {
     public interface ICategoryRepo
     {
-       IEnumerable<Game> GetGamesCategory(string category);
-       int GetGamesCountByCategory(string category);
-        int GetCategoriesCount();
+        Category GetById(int id);
+        IEnumerable<Category> GetAll();
+        void Add(Category category);
+        void Update(Category category);
+        void Delete(int id);
     }
 }

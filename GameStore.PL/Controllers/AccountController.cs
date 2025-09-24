@@ -1,4 +1,7 @@
-using GameStore.BLL.Services.Abstractions;
+﻿using GameStore.BLL.Service.Abstractions;
+using GameStore.BLL.Service.Abstractions;
+using GameStore.DAL.Entities;
+using GameStore.DAL.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -9,36 +12,51 @@ namespace GameStore.PL.Controllers
     public class AccountController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly IWebHostEnvironment _environment;
 
-        public AccountController(IAuthService authService)
+        public AccountController(IAuthService authService, IWebHostEnvironment environment)
         {
             _authService = authService;
+            _environment = environment;
         }
 
+       
         [HttpGet]
         public IActionResult Register() => View();
 
+        //=======================Regester======================
         [HttpPost]
-        public async Task<IActionResult> Register(string fullName, string email, string password)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(
+    string fullName,
+    string email,
+    string password,
+    DateTime dateOfBirth,
+    bool emailConfirmed = false)
         {
-            var user = await _authService.RegisterAsync(fullName, email, password);
+            var user = await _authService.RegisterAsync(
+                fullName, email, password, dateOfBirth,
+                null,                 // profile picture disabled for now
+                UserRole.User,        // 🟢 ثابت User
+                emailConfirmed);
 
-            
             await SignInUser(user);
-
             return RedirectToAction("Index", "Home");
         }
 
+        // 👇 عرض صفحة تسجيل الدخول
         [HttpGet]
         public IActionResult Login() => View();
 
+        // 👇 معالجة تسجيل الدخول
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string email, string password)
         {
             var user = await _authService.LoginAsync(email, password);
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid Email or Password");
+                ModelState.AddModelError("", "Invalid login attempt");
                 return View();
             }
 
@@ -46,13 +64,16 @@ namespace GameStore.PL.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // 👇 تسجيل الخروج
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task SignInUser(GameStore.DAL.Entities.User user)
+        private async Task SignInUser(User user)
         {
             var claims = new List<Claim>
             {

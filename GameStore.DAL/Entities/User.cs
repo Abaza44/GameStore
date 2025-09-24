@@ -1,5 +1,4 @@
-﻿using GameStore.DAL.Enums;
-
+using GameStore.DAL.Enums;
 
 namespace GameStore.DAL.Entities
 {
@@ -16,14 +15,12 @@ namespace GameStore.DAL.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-
         // Navigations
         public ICollection<Game> PublishedGames { get; set; } = new List<Game>();
         public ICollection<Order> Orders { get; set; } = new List<Order>();
-        public ICollection<UserGame> UserGames { get; set; } = new List<UserGame>();//العاب اللي هو اشتراها
+        public ICollection<UserGame> UserGames { get; set; } = new List<UserGame>();
         public PublisherBalance? PublisherBalance { get; set; }
         public ICollection<PayoutRequest> PayoutRequests { get; set; } = new List<PayoutRequest>();
-
 
         public override string ToString()
         {

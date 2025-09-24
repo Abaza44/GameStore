@@ -1,4 +1,4 @@
-﻿using GameStore.BLL.Services.Abstractions;
+﻿using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
@@ -10,7 +10,7 @@ using PayPal.Api;
 using OrderEntity = GameStore.DAL.Entities.Order;
 using PaymentEntity = GameStore.DAL.Entities.Payment;
 
-namespace GameStore.BLL.Services.Implementations
+namespace GameStore.BLL.Service.Implementations
 {
     public class CheckoutService : ICheckoutService
     {

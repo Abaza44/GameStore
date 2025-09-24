@@ -1,6 +1,6 @@
 using GameStore.DAL.Entities;
 
-namespace GameStore.BLL.Services.Abstractions
+namespace GameStore.BLL.Service.Abstractions
 {
     public interface ICheckoutService
     {

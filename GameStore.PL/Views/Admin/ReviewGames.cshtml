@@ -1,0 +1,43 @@
+﻿@using GameStore.DAL.Entities
+@model IEnumerable<Game>
+
+@{
+    ViewData["Title"] = "Review Games";
+}
+
+<div class="container mt-4">
+    <h2>🕹 Pending Games Approval</h2>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Publisher</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>@game.Description</td>
+                    <td>@game.Publisher?.FullName</td>
+                    <td>$@game.Price</td>
+                    <td>
+                        <form asp-action="Approve" method="post" style="display:inline-block;">
+                            <input type="hidden" name="gameId" value="@game.Id" />
+                            <button class="btn btn-success btn-sm">Approve</button>
+                        </form>
+                        <form asp-action="Reject" method="post" style="display:inline-block;">
+                            <input type="hidden" name="gameId" value="@game.Id" />
+                            <input type="text" name="reason" placeholder="Reason" class="form-control form-control-sm d-inline" style="width:150px;" />
+                            <button class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

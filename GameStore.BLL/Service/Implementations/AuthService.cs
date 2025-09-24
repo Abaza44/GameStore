@@ -1,10 +1,10 @@
-using GameStore.BLL.Services.Abstractions;
+using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameStore.BLL.Services.Implementations
+namespace GameStore.BLL.Service.Implementations
 {
     public class AuthService : IAuthService
     {
@@ -15,10 +15,13 @@ namespace GameStore.BLL.Services.Implementations
             _context = context;
         }
 
-        public async Task<User> RegisterAsync(string fullName, string email, string password, UserRole role = UserRole.User)
+        public async Task<User> RegisterAsync(string fullName, string email, string password,
+                                              DateTime dob, string? profilePicture,
+                                              UserRole role = UserRole.User,
+                                              bool emailConfirmed = false)
         {
             if (await _context.Users.AnyAsync(u => u.Email == email))
-                throw new Exception("This E-mail was Register");
+                throw new Exception("This email is already registered");
 
             var hash = BCrypt.Net.BCrypt.HashPassword(password);
 
@@ -27,11 +30,15 @@ namespace GameStore.BLL.Services.Implementations
                 FullName = fullName,
                 Email = email,
                 PasswordHash = hash,
-                Role = role
+                DateOfBirth = dob,
+                ProfilePicture = profilePicture,
+                Role = role,
+                EmailConfirmed = emailConfirmed
             };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+
             return user;
         }
 

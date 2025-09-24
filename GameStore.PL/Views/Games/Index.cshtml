@@ -1,0 +1,35 @@
+﻿@model IEnumerable<GameStore.DAL.Entities.Game>
+
+@{
+    ViewData["Title"] = "Games Store";
+}
+
+<div class="container mt-4">
+    <h2>🎮 Available Games</h2>
+
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var game in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@game.PosterUrl" class="card-img-top" alt="@game.Title"
+                             style="max-height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@game.Title</h5>
+                            <p class="card-text">@game.Description</p>
+                            <span class="badge bg-primary">Price: $@game.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                🚧 No games are available yet.
+            </div>
+        }
+    </div>
+</div>
