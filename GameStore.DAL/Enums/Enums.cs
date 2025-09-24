@@ -1,4 +1,4 @@
-﻿
+
 
 namespace GameStore.DAL.Enums
 {
@@ -10,4 +10,6 @@ namespace GameStore.DAL.Enums
     public enum EarningStatus { Pending, Paid }
 
     public enum PayoutStatus { Pending = 0, Approved = 1, Rejected = 2 }
+
+    
 }

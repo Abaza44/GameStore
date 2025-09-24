@@ -1,4 +1,4 @@
-﻿using GameStore.BLL.ModelVM.Game;
+using GameStore.BLL.ModelVM.Game;
 
 namespace GameStore.BLL.Services.Abstractions
 {

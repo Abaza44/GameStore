@@ -10,10 +10,10 @@ namespace GameStore.DAL.DB
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=MOAZ;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=.;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
+        }
         public GameStoreContext(DbContextOptions<GameStoreContext> options) : base(options)
         {
         }
