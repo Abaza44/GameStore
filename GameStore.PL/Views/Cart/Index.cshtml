@@ -1,0 +1,48 @@
+﻿@model GameStore.BLL.ModelVM.cart.CartVM
+
+@{
+    ViewData["Title"] = "My Cart";
+}
+
+<div class="container mt-4"> <h2>🛒 My Cart</h2>
+@if (Model == null || Model.Items == null || !Model.Items.Any())
+{
+        <div class="alert alert-info mt-3">الكارت فارغ حالياً.</div>
+}
+else
+{
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Game</th>
+                    <th>Price</th>
+                    <th style="width: 140px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>$@item.Price</td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="Remove" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="gameId" value="@item.GameId" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th>$@Model.Total</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <a class="btn btn-primary" asp-controller="Checkout" asp-action="Pay">Checkout</a>
+}

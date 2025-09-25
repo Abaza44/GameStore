@@ -1,4 +1,4 @@
-﻿using GameStore.BLL.ModelVM.Order;
+using GameStore.BLL.ModelVM.Order;
 using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
@@ -42,18 +42,18 @@ namespace GameStore.BLL.Service.Implementations
                 });
             }
             return AllOrders;
-            
+
         }
 
         public IEnumerable<GetUserOrdersModel> GetUserOrders(int userId, OrderStatus? status = null)
         {
             var getUserOrders = new List<GetUserOrdersModel>();
-            var userOrders = _orderRepo.GetUserOrders(userId,status);
-            foreach(var order in userOrders)
+            var userOrders = _orderRepo.GetUserOrders(userId, status);
+            foreach (var order in userOrders)
             {
                 getUserOrders.Add(new GetUserOrdersModel
                 {
-                    OrderID= order.Id,
+                    OrderID = order.Id,
                     UserEmail = order.User.Email,
                     UserName = order.User.FullName,
                     Status = order.Status,

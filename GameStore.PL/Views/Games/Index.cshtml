@@ -2,20 +2,16 @@
 
 @{
     ViewData["Title"] = "Games Store";
-    var hasAny = Model?.Any() == true; 
+    var hasAny = Model?.Any() == true;
 }
 
-<div class="container mt-4">
-    <h2>🎮 Available Games</h2>
-
-    @if (!hasAny)
-    {
-        <div class="alert alert-warning mt-3">
-            No Games Added Yet
-        </div>
-    }
-    else
-    {
+<div class="container mt-4"> <h2>🎮 Available Games</h2>
+@if (!hasAny)
+{
+        <div class="alert alert-warning mt-3">لا توجد ألعاب متاحة حالياً.</div>
+}
+else
+{
         <div class="row">
             @foreach (var game in Model ?? Enumerable.Empty<GameStore.DAL.Entities.Game>())
             {
@@ -27,10 +23,18 @@
                             <h5 class="card-title">@game.Title</h5>
                             <p class="card-text">@game.Description</p>
                             <span class="badge bg-primary">Price: $@game.Price</span>
+
+                            @if (User.IsInRole("User"))
+                            {
+                                <form asp-controller="Cart" asp-action="Add" method="post" class="mt-2">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="gameId" value="@game.Id" />
+                                    <button type="submit" class="btn btn-sm btn-success">Add to Cart</button>
+                                </form>
+                            }
                         </div>
                     </div>
                 </div>
             }
         </div>
-    }
-</div>
+}

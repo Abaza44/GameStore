@@ -19,7 +19,7 @@ options.UseSqlServer(connectionString, b => b.MigrationsAssembly("GameStore.DAL"
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options =>
 {
-    options.Filters.Add<UiExceptionFilter>(); 
+    options.Filters.Add<UiExceptionFilter>();
 });
 // Cookie Auth (سجّلها مرة واحدة فقط)
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -36,7 +36,7 @@ builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
 // موجودة مسبقًا لكن للتذكير:
 builder.Services.AddScoped<IGameRepo, GameRepo>();
-builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>(); 
+builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 

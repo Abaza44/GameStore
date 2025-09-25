@@ -1,4 +1,4 @@
-﻿using GameStore.BLL.Service.Abstractions;
+using GameStore.BLL.Service.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.PL.Controllers
@@ -14,7 +14,7 @@ namespace GameStore.PL.Controllers
         public IActionResult GetAllOrders()
         {
             var orders = _orderService.GetAllOrders();
-            if(orders == null)
+            if (orders == null)
             {
                 ViewBag.ErrorMessage = "There is no orders";
                 return View();
