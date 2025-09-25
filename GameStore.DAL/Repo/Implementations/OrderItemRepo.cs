@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.DB;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using GameStore.DAL.Repo.Abstractions;
@@ -102,5 +102,7 @@ namespace GameStore.DAL.Repo.Implementations
             return _context.OrderItems.AsNoTracking()
                 .Where(oi => oi.OrderId == orderId).Sum(oi => oi.UnitPrice);
         }
+        public bool ExistsByGameId(int gameId) => _context.OrderItems.Any(x => x.GameId == gameId);
+        
     }
 }

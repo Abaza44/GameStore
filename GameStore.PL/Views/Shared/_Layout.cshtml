@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"] - GameStore</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-J5O..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
@@ -13,9 +17,8 @@
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">🎮 GameStore</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -26,10 +29,9 @@
                         <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">About</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="Games" asp-action="Index">Games</a></li>
-                        
                     </ul>
 
-                    <!-- روابط حسب حالة المستخدم -->
+                    <!-- حسب حالة المستخدم -->
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
@@ -37,20 +39,29 @@
                                 <span class="nav-link text-white">Welcome, @User.Identity.Name</span>
                             </li>
 
-                            @* يظهر Dashboard بس لو Admin *@
+                            @* Admin فقط *@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
                                     <a asp-controller="Admin" asp-action="Dashboard" class="nav-link">Admin Dashboard</a>
                                 </li>
-                            }
-                            @if (User.IsInRole("Admin"))
-                            {
                                 <li class="nav-item">
                                     <a asp-controller="Admin" asp-action="ReviewGames" class="nav-link">Review Games</a>
                                 </li>
                             }
-                            @* يظهر MyGames بس لو Publisher *@
+                            // ==========CART ==========
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                                @if (User.IsInRole("User"))
+                                {
+                                    <li class="nav-item">
+                                        <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                            <i class="fa-solid fa-cart-shopping me-1"></i> Cart
+                                        </a>
+                                    </li>
+                                }
+                            }
+                            @* Publisher فقط *@
                             @if (User.IsInRole("Publisher"))
                             {
                                 <li class="nav-item">
@@ -77,6 +88,13 @@
                                 <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
                             </li>
                         }
+
+                        <!-- زر الوضع الليلي -->
+                        <li class="nav-item">
+                            <button id="darkModeToggle" class="btn btn-sm btn-outline-light ms-2" type="button" title="Toggle theme">
+                                <i class="fa-solid fa-moon"></i>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -91,6 +109,14 @@
         &copy; @DateTime.Now.Year - GameStore
     </footer>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+    @await Html.PartialAsync("_SuccessToastPartial")
+    @await Html.PartialAsync("_ErrorToastPartial")
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

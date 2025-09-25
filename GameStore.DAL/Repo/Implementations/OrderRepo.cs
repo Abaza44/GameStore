@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.DB;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using GameStore.DAL.Repo.Abstractions;
@@ -9,62 +9,74 @@ namespace GameStore.DAL.Repo.Implementations
     public class OrderRepo : IOrderRepo
     {
         private readonly GameStoreContext _context;
+        public OrderRepo(GameStoreContext context) => _context = context;
 
-        public OrderRepo(GameStoreContext context)
-        {
-            _context = context;
-        }
+        public int GetOrdersCount() => _context.Orders.Count();
 
-        
-
-        public void Create(Order order)
-        {
-            this._context.Orders.Add(order);    
-            this._context.SaveChanges();
-        }
-        public void Delete(int id)
-        {
-            var order = this._context.Orders.FirstOrDefault(order => order.Id == id);
-            if (order == null) return;
-            this._context.Orders.Remove(order);
-            this._context.SaveChanges();
-        }
-
-
-        public Order? GetById(int orderId)
-        {
-            return _context.Orders.AsNoTracking().Where(o => o.Id == orderId).FirstOrDefault();
-        }
-        public Order? GetByIdWithItems(int orderId)
-        {
-            return _context.Orders.AsNoTracking().Include(o=>o.Items)
-                .Where(o => o.Id == orderId && o.Status == Enums.OrderStatus.Pending).FirstOrDefault();
-        }
-
-        public int GetOrdersCount()
-        {
-            return _context.Orders.AsNoTracking().Count();
-        }
         public int GetOrdersCountForUser(int userId)
-        {
-            return _context.Orders.AsNoTracking().Count(o => o.UserId == userId);
-        }
-        public int CountByStatus(OrderStatus status)
-        {
-            return _context.Orders.AsNoTracking().Count(o => o.Status == status);
-        }
+            => _context.Orders.Count(o => o.UserId == userId);
+
+        public IEnumerable<Order> GetAllOrders(int take = 10)
+            => _context.Orders
+                       .Include(o => o.Items)
+                           .ThenInclude(i => i.Game)
+                       .OrderByDescending(o => o.OrderDate)
+                       .Take(take)
+                       .AsNoTracking()
+                       .ToList();
 
         public IEnumerable<Order> GetUserOrders(int userId, OrderStatus? status = null)
         {
-            if(status == null)
-            {
-                return _context.Orders.AsNoTracking().Include(u => u.User).Include(i => i.Items).Where(o => o.UserId == userId).ToList();
-            }
-            return _context.Orders.AsNoTracking().Include(u => u.User).Include(i => i.Items).Where(o => o.UserId == userId && o.Status == status).ToList();
+            var q = _context.Orders
+                            .Include(o => o.Items)
+                                .ThenInclude(i => i.Game)
+                            .Where(o => o.UserId == userId);
+
+            if (status.HasValue) q = q.Where(o => o.Status == status.Value);
+
+            return q.OrderByDescending(o => o.OrderDate)
+                    .AsNoTracking()
+                    .ToList();
         }
-        public IEnumerable<Order> GetAllOrders(int take = 10)
+
+        public Order? GetById(int orderId)
+            => _context.Orders.AsNoTracking().FirstOrDefault(o => o.Id == orderId);
+
+        public Order? GetByIdWithItems(int orderId)
+            => _context.Orders
+                       .Include(o => o.Items)
+                           .ThenInclude(i => i.Game)
+                       .AsNoTracking()
+                       .FirstOrDefault(o => o.Id == orderId);
+
+        public void Create(Order order)
         {
-            return _context.Orders.AsNoTracking().Include(u => u.User).Include(i => i.Items).ThenInclude(g => g.Game).OrderByDescending(o => o.OrderDate).Take(take).ToList();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var order = _context.Orders.Find(id);
+            if (order != null)
+            {
+                _context.Orders.Remove(order);
+                _context.SaveChanges();
+            }
+        }
+
+        public int CountByStatus(OrderStatus status)
+            => _context.Orders.Count(o => o.Status == status);
+
+        public Order? GetPendingOrderForUser(int userId)
+            => _context.Orders
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Game)
+            .FirstOrDefault(o => o.UserId == userId && o.Status == OrderStatus.Pending);
+        public void Update(Order order)
+        {
+            _context.Orders.Update(order);
+            _context.SaveChanges();
         }
     }
 }

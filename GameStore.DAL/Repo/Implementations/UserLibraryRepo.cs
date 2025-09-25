@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.DB;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Repo.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +38,7 @@ namespace GameStore.DAL.Repo.Implementations
         {
             return this._context.UserGames.AsNoTracking().Any(ug => ug.UserId == userId && ug.GameId == gameId);
         }
+        public bool ExistsByGameId(int gameId) => _context.UserGames.Any(x => x.GameId == gameId);
         public void AddOwnership(int userId, int gameId)
         {
             if (!OwnsGame(userId, gameId))
@@ -51,5 +52,6 @@ namespace GameStore.DAL.Repo.Implementations
                 Create(userGame);
             }
         }
+        
     }
 }
