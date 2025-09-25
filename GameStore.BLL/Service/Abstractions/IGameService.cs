@@ -28,5 +28,6 @@ namespace GameStore.BLL.Service.Abstractions
         Task<IEnumerable<GameViewModel>> GetApprovedAsync();
         Task<IEnumerable<GameViewModel>> GetPendingAsync();
         Task<IEnumerable<GameViewModel>> GetRejectedAsync();
+        GameViewModel AddGame(GameCreateModel model, int publisherId);
     }
 }

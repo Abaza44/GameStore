@@ -38,12 +38,14 @@ namespace GameStore.PL.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult UploadGame(GameCreateModel game)
         {
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            _gameService.AddGame(game, userId);
             game.PublisherId = userId;
             _gameService.AddGame(game);
-            TempData["msg"] = "Game uploaded and waiting admin approval.";
+            TempData["SuccessMessage"] = "🎮 Game uploaded. Waiting admin approval!";
             return RedirectToAction("MyGames");
         }
     }

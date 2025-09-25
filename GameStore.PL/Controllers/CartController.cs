@@ -60,7 +60,7 @@ namespace GameStore.PL.Controllers
             if (string.IsNullOrEmpty(uidStr)) return RedirectToAction("Login", "Account");
 
             var userId = int.Parse(uidStr);
-            //_cartService.Clear(userId);
+            _cartService.ClearCart(userId);
             TempData["SuccessMessage"] = "تم تفريغ السلة.";
             return RedirectToAction("Index");
         }

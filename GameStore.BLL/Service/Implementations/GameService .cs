@@ -193,5 +193,27 @@ namespace GameStore.BLL.Service.Implementations
             var games = await _gameRepo.GetRejectedGamesAsync();
             return games.Select(MapToView);
         }
+
+        public GameViewModel AddGame(GameCreateModel model, int publisherId)
+        {
+            var PosterUrlPath = Upload.UploadFile("Files", model.PosterUrl);
+            var game = new Game
+            {
+                CategoryId = model.CategoryId,
+                PublisherId = publisherId,  
+                Title = model.Title,
+                Description = model.Description,
+                PosterUrl = PosterUrlPath,
+                Price = model.Price,
+                DownloadUrl = model.DownloadUrl,
+                Status = GameStatus.Pending,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            _gameRepo.Create(game);
+            return MapToView(game);
+        }
+
     }
 }

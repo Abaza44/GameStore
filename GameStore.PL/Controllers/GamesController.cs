@@ -9,24 +9,24 @@ using System.Security.Claims;
 
 namespace GameStore.PL.Controllers
 {
+    [Authorize]
     public class GamesController : Controller
     {
-        private readonly GameStoreContext _context;
         private readonly IGameService _gameService;
+        private readonly ILogger<GamesController> _logger;
 
-        
-        public GamesController(GameStoreContext context, IGameService gameService)
+        public GamesController(IGameService gameService, ILogger<GamesController> logger)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
+            _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [AllowAnonymous] // أي حد يقدر يشوف الألعاب
+
+        public async Task<IActionResult> Index()
         {
-            var games = _context.Games
-                .Where(g => g.Status == GameStatus.Approved)
-                .AsNoTracking()
-                .ToList(); // عمرها ما تبقى null
+            var games = await _gameService.GetApprovedAsync(); 
             return View(games);
         }
 
@@ -50,15 +50,30 @@ namespace GameStore.PL.Controllers
                 _gameService.DeleteGame(gameId, currentUserId, isAdmin);
                 TempData["SuccessMessage"] = "Game deleted successfully.";
             }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["ErrorMessage"] = "❌ You can only delete your own games.";
+            }
+            catch (InvalidOperationException)
+            {
+                TempData["ErrorMessage"] = "❌ You cannot delete this game because it has been purchased or added to a library.";
+            }
+            catch (KeyNotFoundException)
+            {
+                TempData["ErrorMessage"] = "❌ Game not found.";
+            }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = ex.Message;
+                _logger.LogError(ex, "Unexpected error deleting game {GameId}", gameId);
+                TempData["ErrorMessage"] = "Something went wrong while deleting the game.";
             }
 
             if (User.IsInRole("Publisher"))
                 return RedirectToAction("MyGames", "Publisher");
+            else if (User.IsInRole("Admin"))
+                return RedirectToAction("ReviewGames", "Admin");
 
-            return RedirectToAction("ReviewGames", "Admin");
+            return RedirectToAction("Index");
         }
     }
 }
