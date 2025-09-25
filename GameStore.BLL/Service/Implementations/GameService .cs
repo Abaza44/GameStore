@@ -145,5 +145,53 @@ namespace GameStore.BLL.Service.Implementations
 
             _gameRepo.Delete(game);
         }
+
+        public async Task<GameViewModel?> GetByIdAsync(int id)
+        {
+            var game = await _gameRepo.GetByIdAsync(id);
+            return game == null ? null : MapToView(game);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetAllAsync()
+        {
+            var games = await _gameRepo.GetAllGamesAsync();
+            return games.Select(MapToView);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetTopAsync(int n)
+        {
+            var games = await _gameRepo.GetTopGamesAsync(n);
+            return games.Select(MapToView);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetRecentAsync(int n)
+        {
+            var games = await _gameRepo.GetRecentGamesAsync(n);
+            return games.Select(MapToView);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetByPublisherAsync(int publisherId)
+        {
+            var games = await _gameRepo.GetPublisherGamesAsync(publisherId);
+            return games.Select(MapToView);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetApprovedAsync()
+        {
+            var games = await _gameRepo.GetApprovedGamesAsync();
+            return games.Select(MapToView);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetPendingAsync()
+        {
+            var games = await _gameRepo.GetPendingGamesAsync();
+            return games.Select(MapToView);
+        }
+
+        public async Task<IEnumerable<GameViewModel>> GetRejectedAsync()
+        {
+            var games = await _gameRepo.GetRejectedGamesAsync();
+            return games.Select(MapToView);
+        }
     }
 }

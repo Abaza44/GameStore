@@ -1,0 +1,52 @@
+﻿@model GameStore.BLL.ModelVM.Order.OrderVM
+
+@{
+    ViewData["Title"] = "Checkout Success";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">✅ Payment Successful!</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Order Confirmation</h4>
+            <p class="card-text">Thank you for your purchase! Your order has been completed successfully.</p>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Order ID:</strong> @Model.Id
+                </li>
+                <li class="list-group-item">
+                    <strong>Status:</strong> @Model.Status
+                </li>
+                <li class="list-group-item">
+                    <strong>Total Paid:</strong> $@Model.TotalAmount
+                </li>
+                <li class="list-group-item">
+                    <strong>Transaction ID:</strong> @Model.PaymentTransactionId
+                </li>
+                <li class="list-group-item">
+                    <strong>Order Date:</strong> @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                </li>
+                @if (Model.Games != null && Model.Games.Any())
+                {
+                    <li class="list-group-item">
+                        <strong>Purchased Games:</strong>
+                        <ul>
+                            @foreach (var game in Model.Games)
+                            {
+                                <li>@game</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+
+            <div class="mt-3">
+                <a href="/Games" class="btn btn-primary">🎮 Browse More Games</a>
+                <a href="/User/Library" class="btn btn-outline-success">📚 Go to My Library</a>
+            </div>
+        </div>
+    </div>
+</div>

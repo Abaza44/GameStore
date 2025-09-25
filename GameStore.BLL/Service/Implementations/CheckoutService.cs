@@ -1,7 +1,10 @@
-﻿using GameStore.BLL.Service.Abstractions;
+﻿using GameStore.BLL.ModelVM.Order;
+using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
+using GameStore.DAL.Repo.Abstractions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PayPal.Api;
@@ -14,12 +17,16 @@ namespace GameStore.BLL.Service.Implementations
 {
     public class CheckoutService : ICheckoutService
     {
-        private readonly GameStoreContext _context;
+        private readonly IGameRepo _gameRepo;
+        private readonly IOrderRepo _orderRepo;
+        private readonly IPaymentRepo _paymentRepo;
         private readonly IConfiguration _config;
-
-        public CheckoutService(GameStoreContext context, IConfiguration config)
+        
+        public CheckoutService(IGameRepo gameRepo, IOrderRepo orderRepo, IPaymentRepo paymentRepo, IConfiguration config)
         {
-            _context = context;
+            _gameRepo = gameRepo;
+            _orderRepo = orderRepo;
+            _paymentRepo = paymentRepo;
             _config = config;
         }
 
@@ -27,38 +34,34 @@ namespace GameStore.BLL.Service.Implementations
         {
             var clientId = _config["PayPal:ClientId"];
             var secret = _config["PayPal:Secret"];
-            var config = new Dictionary<string, string> { { "mode", "sandbox" } };
+            var mode = _config["PayPal:Mode"] ?? "sandbox";
 
+            var config = new Dictionary<string, string> { { "mode", mode } };
             var token = new OAuthTokenCredential(clientId, secret, config).GetAccessToken();
             return new APIContext(token) { Config = config };
         }
 
-        public async Task<(int orderId, string approvalUrl)> CreateCheckout(int userId, int gameId, string baseUrl)
+        public async Task<(int orderId, string approvalUrl)> CreateCheckout(OrderCreateModel model, string baseUrl)
         {
-            var game = await _context.Games.FindAsync(gameId);
-            if (game == null) throw new Exception("Game not found");
+            var games = await _gameRepo.GetByIdsAsync(model.GameIds);
 
-            
+            var total = games.Sum(g => g.Price);
+
             var order = new OrderEntity
             {
-                UserId = userId,
-                TotalAmount = game.Price,
-                Status = OrderStatus.Pending
+                UserId = model.UserId,
+                Status = OrderStatus.Pending,
+                TotalAmount = total,
+                Items = games.Select(g => new OrderItem
+                {
+                    GameId = g.Id,
+                    UnitPrice = g.Price
+                }).ToList()
             };
-            _context.Orders.Add(order);
 
-           
-            var item = new OrderItem
-            {
-                Order = order,
-                GameId = gameId,
-                UnitPrice = game.Price
-            };
-            _context.OrderItems.Add(item);
+            await _orderRepo.CreateAsync(order);
+            await _orderRepo.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-
-            
             var apiContext = GetAPIContext();
 
             var payment = new PayPal.Api.Payment
@@ -66,17 +69,17 @@ namespace GameStore.BLL.Service.Implementations
                 intent = "sale",
                 payer = new Payer { payment_method = "paypal" },
                 transactions = new List<Transaction>
+        {
+            new Transaction
+            {
+                description = "شراء ألعاب من GameStore",
+                amount = new Amount
                 {
-                    new Transaction
-                    {
-                        description = $"شراء لعبة {game.Title}",
-                        amount = new Amount
-                        {
-                            currency = "USD",
-                            total = game.Price.ToString("F2")
-                        }
-                    }
-                },
+                    currency = "USD",
+                    total = total.ToString("F2")
+                }
+            }
+        },
                 redirect_urls = new RedirectUrls
                 {
                     return_url = $"{baseUrl}/Checkout/Success?orderId={order.Id}",
@@ -90,7 +93,7 @@ namespace GameStore.BLL.Service.Implementations
             return (order.Id, approvalUrl);
         }
 
-        public async Task<OrderEntity> ConfirmCheckout(int orderId, string paymentId, string payerId)
+        public async Task<OrderVM> ConfirmCheckout(int orderId, string paymentId, string payerId)
         {
             var apiContext = GetAPIContext();
 
@@ -98,28 +101,35 @@ namespace GameStore.BLL.Service.Implementations
             var executedPayment = new PayPal.Api.Payment { id = paymentId }
                 .Execute(apiContext, paymentExecution);
 
-            var order = await _context.Orders
-                .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _orderRepo.GetByIdWithItemsAsync(orderId);
+            if (order == null) throw new Exception("Order not found");
 
-            if (order == null)
-                throw new Exception("Order not found");
-
-           
             order.Status = OrderStatus.Completed;
+            await _orderRepo.UpdateAsync(order);
+            await _orderRepo.SaveChangesAsync();
 
             var payEntity = new PaymentEntity
             {
                 OrderId = order.Id,
                 TransactionId = executedPayment.id,
-                Provider = PaymentProvider.Paypal, 
-                Status = PaymentStatus.Success      
+                Provider = PaymentProvider.Paypal,
+                Status = PaymentStatus.Success
             };
 
-            _context.Payments.Add(payEntity);
-            await _context.SaveChangesAsync();
+            await _paymentRepo.AddAsync(payEntity);
+            await _paymentRepo.SaveChangesAsync();
 
-            return order;
+            return new OrderVM
+            {
+                Id = order.Id,
+                Status = order.Status.ToString(),
+                TotalAmount = order.TotalAmount,
+                PaymentTransactionId = executedPayment.id
+            };
         }
+
+
+
+
     }
 }

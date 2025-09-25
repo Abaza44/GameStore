@@ -1,0 +1,50 @@
+﻿@model GameStore.BLL.ModelVM.Order.OrderCreateModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container mt-5">
+    <h2>🛒 Checkout</h2>
+    <hr />
+
+    <form asp-action="Pay" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- نخلي الـ GameIds تتبعت Hidden Inputs -->
+        @if (Model.GameIds != null && Model.GameIds.Count > 0)
+        {
+            @for (int i = 0; i < Model.GameIds.Count; i++)
+            {
+                <input type="hidden" name="GameIds[@i]" value="@Model.GameIds[i]" />
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Your cart is empty 😢
+            </div>
+        }
+
+        <!-- اختيار طريقة الدفع -->
+        <div class="form-group mt-3">
+            <label asp-for="PaymentMethod"><strong>Select Payment Method:</strong></label>
+            <select asp-for="PaymentMethod" class="form-control" required>
+                <option value="">-- Choose a payment method --</option>
+                <option value="Paypal">PayPal 💳</option>
+                <option value="CreditCard" disabled>Credit Card 💰 (Soon)</option>
+                <option value="Bank" disabled>Bank Transfer 🏦 (Soon)</option>
+            </select>
+        </div>
+
+        <!-- زرار الدفع -->
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success btn-lg">
+                ✅ Proceed to Payment
+            </button>
+            <a class="btn btn-outline-secondary ms-2" href="/Games">
+                ⬅️ Continue Shopping
+            </a>
+        </div>
+    </form>
+</div>

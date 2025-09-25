@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Payment Error";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-danger">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="mb-0">⚠️ Oops, something went wrong!</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title text-danger">Payment Failed</h4>
+            <p class="card-text text-muted">
+                Unfortunately, your payment could not be processed due to an unexpected error.
+                Please check your payment method and try again.
+            </p>
+
+            <div class="alert alert-danger mt-3">
+                <i class="bi bi-x-circle"></i> If the issue persists, please contact our support team.
+            </div>
+
+            <div class="mt-4">
+                <a class="btn btn-primary" href="/Checkout/Pay">🔄 Try Again</a>
+                <a class="btn btn-outline-secondary" href="/Games">🎮 Back to Store</a>
+                <a class="btn btn-outline-dark" href="/Home/Contact">📞 Contact Support</a>
+            </div>
+        </div>
+    </div>
+</div>

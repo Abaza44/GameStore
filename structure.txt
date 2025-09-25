@@ -1,0 +1,867 @@
+Folder PATH listing
+Volume serial number is 683E-E0C5
+D:.
+¦   .gitattributes
+¦   .gitignore
+¦   GameStore.sln
+¦   structure.txt
+¦   
++---.github
+¦   +---workflows
++---.vs
+¦   ¦   ProjectSettings.json
+¦   ¦   slnx.sqlite
+¦   ¦   VSWorkspaceState.json
+¦   ¦   
+¦   +---GameStore
+¦   ¦   +---config
+¦   ¦   ¦       applicationhost.config
+¦   ¦   ¦       
+¦   ¦   +---copilot-chat
+¦   ¦   ¦   +---baaae8b9
+¦   ¦   ¦   ¦   +---sessions
+¦   ¦   ¦   ¦           38b5d4f9-7a41-483d-9bb5-13a6c59305e8
+¦   ¦   ¦   ¦           
+¦   ¦   ¦   +---c3c8f4ff
+¦   ¦   ¦       +---sessions
+¦   ¦   +---CopilotIndices
+¦   ¦   ¦   +---17.14.1147.5054
+¦   ¦   ¦   ¦       CodeChunks.db
+¦   ¦   ¦   ¦       SemanticSymbols.db
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---17.14.786.1071
+¦   ¦   ¦   ¦       CodeChunks.db
+¦   ¦   ¦   ¦       SemanticSymbols.db
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---17.14.878.3237
+¦   ¦   ¦           CodeChunks.db
+¦   ¦   ¦           CodeChunks.db-shm
+¦   ¦   ¦           CodeChunks.db-wal
+¦   ¦   ¦           SemanticSymbols.db
+¦   ¦   ¦           SemanticSymbols.db-shm
+¦   ¦   ¦           SemanticSymbols.db-wal
+¦   ¦   ¦           
+¦   ¦   +---DesignTimeBuild
+¦   ¦   ¦       .dtbcache.v2
+¦   ¦   ¦       
+¦   ¦   +---FileContentIndex
+¦   ¦   ¦       6f13620b-f007-47a8-be7b-3ad7571a7299.vsidx
+¦   ¦   ¦       b8b8c84e-5ea6-4f37-9811-b65233dd2377.vsidx
+¦   ¦   ¦       cda0f206-74f7-44c2-896b-bac0cbb3eae8.vsidx
+¦   ¦   ¦       d00ce7d7-111a-4f9d-b2cc-4af18a9350d1.vsidx
+¦   ¦   ¦       d16d2353-e79e-4c24-a9be-d2cb312c1aae.vsidx
+¦   ¦   ¦       
+¦   ¦   +---v17
+¦   ¦           .futdcache.v2
+¦   ¦           .wsuo
+¦   ¦           DocumentLayout.backup.json
+¦   ¦           DocumentLayout.json
+¦   ¦           
+¦   +---ProjectEvaluation
+¦   ¦       gamestore.metadata.v9.bin
+¦   ¦       gamestore.projects.v9.bin
+¦   ¦       gamestore.strings.v9.bin
+¦   ¦       
+¦   +---sd
++---GameStore
+¦   ¦   appsettings.Development.json
+¦   ¦   appsettings.json
+¦   ¦   GameStore.csproj
+¦   ¦   Program.cs
+¦   ¦   
+¦   +---Controllers
+¦   ¦       HomeController.cs
+¦   ¦       
+¦   +---Models
+¦   ¦       ErrorViewModel.cs
+¦   ¦       
+¦   +---obj
+¦   ¦       GameStore.csproj.nuget.dgspec.json
+¦   ¦       GameStore.csproj.nuget.g.props
+¦   ¦       GameStore.csproj.nuget.g.targets
+¦   ¦       project.assets.json
+¦   ¦       project.nuget.cache
+¦   ¦       
+¦   +---Properties
+¦   ¦       launchSettings.json
+¦   ¦       
+¦   +---Views
+¦   ¦   ¦   _ViewImports.cshtml
+¦   ¦   ¦   _ViewStart.cshtml
+¦   ¦   ¦   
+¦   ¦   +---Home
+¦   ¦   ¦       Index.cshtml
+¦   ¦   ¦       Privacy.cshtml
+¦   ¦   ¦       
+¦   ¦   +---Shared
+¦   ¦           Error.cshtml
+¦   ¦           _Layout.cshtml
+¦   ¦           _Layout.cshtml.css
+¦   ¦           _ValidationScriptsPartial.cshtml
+¦   ¦           
+¦   +---wwwroot
+¦       ¦   favicon.ico
+¦       ¦   
+¦       +---css
+¦       ¦       site.css
+¦       ¦       
+¦       +---js
+¦       ¦       site.js
+¦       ¦       
+¦       +---lib
+¦           +---bootstrap
+¦           ¦   ¦   LICENSE
+¦           ¦   ¦   
+¦           ¦   +---dist
+¦           ¦       +---css
+¦           ¦       ¦       bootstrap-grid.css
+¦           ¦       ¦       bootstrap-grid.css.map
+¦           ¦       ¦       bootstrap-grid.min.css
+¦           ¦       ¦       bootstrap-grid.min.css.map
+¦           ¦       ¦       bootstrap-grid.rtl.css
+¦           ¦       ¦       bootstrap-grid.rtl.css.map
+¦           ¦       ¦       bootstrap-grid.rtl.min.css
+¦           ¦       ¦       bootstrap-grid.rtl.min.css.map
+¦           ¦       ¦       bootstrap-reboot.css
+¦           ¦       ¦       bootstrap-reboot.css.map
+¦           ¦       ¦       bootstrap-reboot.min.css
+¦           ¦       ¦       bootstrap-reboot.min.css.map
+¦           ¦       ¦       bootstrap-reboot.rtl.css
+¦           ¦       ¦       bootstrap-reboot.rtl.css.map
+¦           ¦       ¦       bootstrap-reboot.rtl.min.css
+¦           ¦       ¦       bootstrap-reboot.rtl.min.css.map
+¦           ¦       ¦       bootstrap-utilities.css
+¦           ¦       ¦       bootstrap-utilities.css.map
+¦           ¦       ¦       bootstrap-utilities.min.css
+¦           ¦       ¦       bootstrap-utilities.min.css.map
+¦           ¦       ¦       bootstrap-utilities.rtl.css
+¦           ¦       ¦       bootstrap-utilities.rtl.css.map
+¦           ¦       ¦       bootstrap-utilities.rtl.min.css
+¦           ¦       ¦       bootstrap-utilities.rtl.min.css.map
+¦           ¦       ¦       bootstrap.css
+¦           ¦       ¦       bootstrap.css.map
+¦           ¦       ¦       bootstrap.min.css
+¦           ¦       ¦       bootstrap.min.css.map
+¦           ¦       ¦       bootstrap.rtl.css
+¦           ¦       ¦       bootstrap.rtl.css.map
+¦           ¦       ¦       bootstrap.rtl.min.css
+¦           ¦       ¦       bootstrap.rtl.min.css.map
+¦           ¦       ¦       
+¦           ¦       +---js
+¦           ¦               bootstrap.bundle.js
+¦           ¦               bootstrap.bundle.js.map
+¦           ¦               bootstrap.bundle.min.js
+¦           ¦               bootstrap.bundle.min.js.map
+¦           ¦               bootstrap.esm.js
+¦           ¦               bootstrap.esm.js.map
+¦           ¦               bootstrap.esm.min.js
+¦           ¦               bootstrap.esm.min.js.map
+¦           ¦               bootstrap.js
+¦           ¦               bootstrap.js.map
+¦           ¦               bootstrap.min.js
+¦           ¦               bootstrap.min.js.map
+¦           ¦               
+¦           +---jquery
+¦           ¦   ¦   LICENSE.txt
+¦           ¦   ¦   
+¦           ¦   +---dist
+¦           ¦           jquery.js
+¦           ¦           jquery.min.js
+¦           ¦           jquery.min.map
+¦           ¦           jquery.slim.js
+¦           ¦           jquery.slim.min.js
+¦           ¦           jquery.slim.min.map
+¦           ¦           
+¦           +---jquery-validation
+¦           ¦   ¦   LICENSE.md
+¦           ¦   ¦   
+¦           ¦   +---dist
+¦           ¦           additional-methods.js
+¦           ¦           additional-methods.min.js
+¦           ¦           jquery.validate.js
+¦           ¦           jquery.validate.min.js
+¦           ¦           
+¦           +---jquery-validation-unobtrusive
+¦               ¦   LICENSE.txt
+¦               ¦   
+¦               +---dist
+¦                       jquery.validate.unobtrusive.js
+¦                       jquery.validate.unobtrusive.min.js
+¦                       
++---GameStore.BLL
+¦   ¦   GameStore.BLL.csproj
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦   ¦   +---net8.0
+¦   ¦   ¦           GameStore.BLL.deps.json
+¦   ¦   ¦           GameStore.BLL.dll
+¦   ¦   ¦           GameStore.BLL.pdb
+¦   ¦   ¦           GameStore.BLL.runtimeconfig.json
+¦   ¦   ¦           GameStore.DAL.dll
+¦   ¦   ¦           GameStore.DAL.pdb
+¦   ¦   ¦           
+¦   ¦   +---Release
+¦   ¦       +---net8.0
+¦   +---Helper
+¦   ¦       Upload.cs
+¦   ¦       
+¦   +---ModelVM
+¦   ¦   +---cart
+¦   ¦   ¦       CartItemVM.cs
+¦   ¦   ¦       CartVM.cs
+¦   ¦   ¦       
+¦   ¦   +---Game
+¦   ¦   ¦       GameCreateModel.cs
+¦   ¦   ¦       GameUpdateModel.cs
+¦   ¦   ¦       GameViewModel.cs
+¦   ¦   ¦       
+¦   ¦   +---Order
+¦   ¦           GetAllOrdersModel.cs
+¦   ¦           GetOrderModel.cs
+¦   ¦           GetUserOrdersModel.cs
+¦   ¦           OrderCreateModel.cs
+¦   ¦           OrderVM.cs
+¦   ¦           
+¦   +---obj
+¦   ¦   ¦   GameStore.BLL.csproj.nuget.dgspec.json
+¦   ¦   ¦   GameStore.BLL.csproj.nuget.g.props
+¦   ¦   ¦   GameStore.BLL.csproj.nuget.g.targets
+¦   ¦   ¦   project.assets.json
+¦   ¦   ¦   project.nuget.cache
+¦   ¦   ¦   
+¦   ¦   +---Debug
+¦   ¦   ¦   +---net8.0
+¦   ¦   ¦       ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦   ¦   ¦       ¦   GameStor.937B011A.Up2Date
+¦   ¦   ¦       ¦   GameStore.BLL.AssemblyInfo.cs
+¦   ¦   ¦       ¦   GameStore.BLL.AssemblyInfoInputs.cache
+¦   ¦   ¦       ¦   GameStore.BLL.assets.cache
+¦   ¦   ¦       ¦   GameStore.BLL.csproj.AssemblyReference.cache
+¦   ¦   ¦       ¦   GameStore.BLL.csproj.BuildWithSkipAnalyzers
+¦   ¦   ¦       ¦   GameStore.BLL.csproj.CoreCompileInputs.cache
+¦   ¦   ¦       ¦   GameStore.BLL.csproj.FileListAbsolute.txt
+¦   ¦   ¦       ¦   GameStore.BLL.dll
+¦   ¦   ¦       ¦   GameStore.BLL.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦   ¦       ¦   GameStore.BLL.genruntimeconfig.cache
+¦   ¦   ¦       ¦   GameStore.BLL.GlobalUsings.g.cs
+¦   ¦   ¦       ¦   GameStore.BLL.pdb
+¦   ¦   ¦       ¦   GameStore.BLL.sourcelink.json
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---ref
+¦   ¦   ¦       ¦       GameStore.BLL.dll
+¦   ¦   ¦       ¦       
+¦   ¦   ¦       +---refint
+¦   ¦   ¦               GameStore.BLL.dll
+¦   ¦   ¦               
+¦   ¦   +---Release
+¦   ¦       +---net8.0
+¦   ¦           ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦   ¦           ¦   GameStore.BLL.AssemblyInfo.cs
+¦   ¦           ¦   GameStore.BLL.AssemblyInfoInputs.cache
+¦   ¦           ¦   GameStore.BLL.assets.cache
+¦   ¦           ¦   GameStore.BLL.csproj.AssemblyReference.cache
+¦   ¦           ¦   GameStore.BLL.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦           ¦   GameStore.BLL.GlobalUsings.g.cs
+¦   ¦           ¦   
+¦   ¦           +---ref
+¦   ¦           +---refint
+¦   +---Service
+¦       +---Abstractions
+¦       ¦       IAuthService.cs
+¦       ¦       ICartService.cs
+¦       ¦       ICategoryService.cs
+¦       ¦       ICheckoutService.cs
+¦       ¦       IGameService.cs
+¦       ¦       IOrderService.cs
+¦       ¦       IUserService.cs
+¦       ¦       
+¦       +---Implementations
+¦               AuthService.cs
+¦               CartService.cs
+¦               CategoryService.cs
+¦               CheckoutService.cs
+¦               GameService .cs
+¦               OrderService.cs
+¦               UserService.cs
+¦               
++---GameStore.DAL
+¦   ¦   DbInitializer.cs
+¦   ¦   GameStore.DAL.csproj
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦   ¦   +---net8.0
+¦   ¦   ¦   ¦       GameStore.DAL.deps.json
+¦   ¦   ¦   ¦       GameStore.DAL.dll
+¦   ¦   ¦   ¦       GameStore.DAL.pdb
+¦   ¦   ¦   ¦       GameStore.DAL.runtimeconfig.json
+¦   ¦   ¦   ¦       
+¦   ¦   ¦   +---net9.0
+¦   ¦   +---Release
+¦   ¦       +---net8.0
+¦   +---DB
+¦   ¦       GameStoreContext.cs
+¦   ¦       
+¦   +---Entities
+¦   ¦       Category.cs
+¦   ¦       Game.cs
+¦   ¦       Order.cs
+¦   ¦       OrderItem.cs
+¦   ¦       Payment.cs
+¦   ¦       PayoutRequest.cs
+¦   ¦       PublisherBalance.cs
+¦   ¦       User.cs
+¦   ¦       UserGame.cs
+¦   ¦       
+¦   +---Enums
+¦   ¦       Enums.cs
+¦   ¦       
+¦   +---Migrations
+¦   ¦       20250924044915_InitialCreate.cs
+¦   ¦       20250924044915_InitialCreate.Designer.cs
+¦   ¦       20250924150807_Update_1.cs
+¦   ¦       20250924150807_Update_1.Designer.cs
+¦   ¦       GameStoreContextModelSnapshot.cs
+¦   ¦       
+¦   +---obj
+¦   ¦   ¦   GameStore.DAL.csproj.nuget.dgspec.json
+¦   ¦   ¦   GameStore.DAL.csproj.nuget.g.props
+¦   ¦   ¦   GameStore.DAL.csproj.nuget.g.targets
+¦   ¦   ¦   project.assets.json
+¦   ¦   ¦   project.nuget.cache
+¦   ¦   ¦   
+¦   ¦   +---Debug
+¦   ¦   ¦   +---net8.0
+¦   ¦   ¦   ¦   ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.AssemblyInfo.cs
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.AssemblyInfoInputs.cache
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.assets.cache
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.csproj.AssemblyReference.cache
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.csproj.BuildWithSkipAnalyzers
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.csproj.CoreCompileInputs.cache
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.csproj.FileListAbsolute.txt
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.dll
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.genruntimeconfig.cache
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.GlobalUsings.g.cs
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.pdb
+¦   ¦   ¦   ¦   ¦   GameStore.DAL.sourcelink.json
+¦   ¦   ¦   ¦   ¦   
+¦   ¦   ¦   ¦   +---ref
+¦   ¦   ¦   ¦   ¦       GameStore.DAL.dll
+¦   ¦   ¦   ¦   ¦       
+¦   ¦   ¦   ¦   +---refint
+¦   ¦   ¦   ¦           GameStore.DAL.dll
+¦   ¦   ¦   ¦           
+¦   ¦   ¦   +---net9.0
+¦   ¦   ¦       ¦   .NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+¦   ¦   ¦       ¦   GameStore.DAL.AssemblyInfo.cs
+¦   ¦   ¦       ¦   GameStore.DAL.AssemblyInfoInputs.cache
+¦   ¦   ¦       ¦   GameStore.DAL.assets.cache
+¦   ¦   ¦       ¦   GameStore.DAL.csproj.AssemblyReference.cache
+¦   ¦   ¦       ¦   GameStore.DAL.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦   ¦       ¦   GameStore.DAL.GlobalUsings.g.cs
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---ref
+¦   ¦   ¦       +---refint
+¦   ¦   +---Release
+¦   ¦       +---net8.0
+¦   ¦           ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦   ¦           ¦   GameStore.DAL.AssemblyInfo.cs
+¦   ¦           ¦   GameStore.DAL.AssemblyInfoInputs.cache
+¦   ¦           ¦   GameStore.DAL.assets.cache
+¦   ¦           ¦   GameStore.DAL.csproj.AssemblyReference.cache
+¦   ¦           ¦   GameStore.DAL.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦           ¦   GameStore.DAL.GlobalUsings.g.cs
+¦   ¦           ¦   
+¦   ¦           +---ref
+¦   ¦           +---refint
+¦   +---Repo
+¦       +---Abstractions
+¦       ¦       ICategoryRepo.cs
+¦       ¦       IGameRepo.cs
+¦       ¦       IOrderItemRepo.cs
+¦       ¦       IOrderRepo.cs
+¦       ¦       IPaymentRepo.cs
+¦       ¦       IPayoutRequestRepo.cs
+¦       ¦       IPublisherBalanceRepo.cs
+¦       ¦       IUserLibraryRepo.cs
+¦       ¦       IUserRepo.cs
+¦       ¦       
+¦       +---Implementations
+¦               CategoryRepo.cs
+¦               GameRepo.cs
+¦               OrderItemRepo.cs
+¦               OrderRepo.cs
+¦               PaymentRepo.cs
+¦               PayoutRequestRepo.cs
+¦               PublisherBalanceRepo.cs
+¦               UserLibraryRepo.cs
+¦               UserRepo.cs
+¦               
++---GameStore.PL
+    ¦   appsettings.Development.json
+    ¦   appsettings.json
+    ¦   GameStore.PL.csproj
+    ¦   GameStore.PL.csproj.user
+    ¦   Program.cs
+    ¦   Program_Console.cs
+    ¦   
+    +---bin
+    ¦   +---Debug
+    ¦   ¦   +---net8.0
+    ¦   ¦       ¦   appsettings.Development.json
+    ¦   ¦       ¦   appsettings.json
+    ¦   ¦       ¦   Azure.Core.dll
+    ¦   ¦       ¦   Azure.Identity.dll
+    ¦   ¦       ¦   BCrypt.Net-Next.dll
+    ¦   ¦       ¦   GameStore.BLL.dll
+    ¦   ¦       ¦   GameStore.BLL.pdb
+    ¦   ¦       ¦   GameStore.DAL.dll
+    ¦   ¦       ¦   GameStore.DAL.pdb
+    ¦   ¦       ¦   GameStore.PL.deps.json
+    ¦   ¦       ¦   GameStore.PL.dll
+    ¦   ¦       ¦   GameStore.PL.exe
+    ¦   ¦       ¦   GameStore.PL.pdb
+    ¦   ¦       ¦   GameStore.PL.runtimeconfig.json
+    ¦   ¦       ¦   GameStore.PL.staticwebassets.endpoints.json
+    ¦   ¦       ¦   GameStore.PL.staticwebassets.runtime.json
+    ¦   ¦       ¦   Humanizer.dll
+    ¦   ¦       ¦   Microsoft.Bcl.AsyncInterfaces.dll
+    ¦   ¦       ¦   Microsoft.Build.Locator.dll
+    ¦   ¦       ¦   Microsoft.CodeAnalysis.CSharp.dll
+    ¦   ¦       ¦   Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+    ¦   ¦       ¦   Microsoft.CodeAnalysis.dll
+    ¦   ¦       ¦   Microsoft.CodeAnalysis.Workspaces.dll
+    ¦   ¦       ¦   Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+    ¦   ¦       ¦   Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+    ¦   ¦       ¦   Microsoft.Data.SqlClient.dll
+    ¦   ¦       ¦   Microsoft.EntityFrameworkCore.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.EntityFrameworkCore.Design.dll
+    ¦   ¦       ¦   Microsoft.EntityFrameworkCore.dll
+    ¦   ¦       ¦   Microsoft.EntityFrameworkCore.Relational.dll
+    ¦   ¦       ¦   Microsoft.EntityFrameworkCore.SqlServer.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Caching.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Caching.Memory.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Configuration.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.Extensions.DependencyInjection.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.Extensions.DependencyInjection.dll
+    ¦   ¦       ¦   Microsoft.Extensions.DependencyModel.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Diagnostics.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Hosting.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Logging.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Logging.dll
+    ¦   ¦       ¦   Microsoft.Extensions.ObjectPool.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Options.dll
+    ¦   ¦       ¦   Microsoft.Extensions.Primitives.dll
+    ¦   ¦       ¦   Microsoft.Identity.Client.dll
+    ¦   ¦       ¦   Microsoft.Identity.Client.Extensions.Msal.dll
+    ¦   ¦       ¦   Microsoft.IdentityModel.Abstractions.dll
+    ¦   ¦       ¦   Microsoft.IdentityModel.JsonWebTokens.dll
+    ¦   ¦       ¦   Microsoft.IdentityModel.Logging.dll
+    ¦   ¦       ¦   Microsoft.IdentityModel.Protocols.dll
+    ¦   ¦       ¦   Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+    ¦   ¦       ¦   Microsoft.IdentityModel.Tokens.dll
+    ¦   ¦       ¦   Microsoft.SqlServer.Server.dll
+    ¦   ¦       ¦   Microsoft.Win32.SystemEvents.dll
+    ¦   ¦       ¦   Mono.TextTemplating.dll
+    ¦   ¦       ¦   Newtonsoft.Json.dll
+    ¦   ¦       ¦   PayPal.dll
+    ¦   ¦       ¦   System.ClientModel.dll
+    ¦   ¦       ¦   System.CodeDom.dll
+    ¦   ¦       ¦   System.Composition.AttributedModel.dll
+    ¦   ¦       ¦   System.Composition.Convention.dll
+    ¦   ¦       ¦   System.Composition.Hosting.dll
+    ¦   ¦       ¦   System.Composition.Runtime.dll
+    ¦   ¦       ¦   System.Composition.TypedParts.dll
+    ¦   ¦       ¦   System.Configuration.ConfigurationManager.dll
+    ¦   ¦       ¦   System.Diagnostics.DiagnosticSource.dll
+    ¦   ¦       ¦   System.Drawing.Common.dll
+    ¦   ¦       ¦   System.Formats.Asn1.dll
+    ¦   ¦       ¦   System.IdentityModel.Tokens.Jwt.dll
+    ¦   ¦       ¦   System.IO.Pipelines.dll
+    ¦   ¦       ¦   System.Memory.Data.dll
+    ¦   ¦       ¦   System.Net.WebSockets.WebSocketProtocol.dll
+    ¦   ¦       ¦   System.Runtime.Caching.dll
+    ¦   ¦       ¦   System.Security.Cryptography.ProtectedData.dll
+    ¦   ¦       ¦   System.Security.Permissions.dll
+    ¦   ¦       ¦   System.Text.Encodings.Web.dll
+    ¦   ¦       ¦   System.Text.Json.dll
+    ¦   ¦       ¦   System.Windows.Extensions.dll
+    ¦   ¦       ¦   
+    ¦   ¦       +---cs
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---de
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---es
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---fr
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---it
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---ja
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---ko
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---pl
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---pt-BR
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---ru
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---runtimes
+    ¦   ¦       ¦   +---browser
+    ¦   ¦       ¦   ¦   +---lib
+    ¦   ¦       ¦   ¦       +---net8.0
+    ¦   ¦       ¦   ¦               System.Text.Encodings.Web.dll
+    ¦   ¦       ¦   ¦               
+    ¦   ¦       ¦   +---unix
+    ¦   ¦       ¦   ¦   +---lib
+    ¦   ¦       ¦   ¦       +---net6.0
+    ¦   ¦       ¦   ¦               Microsoft.Data.SqlClient.dll
+    ¦   ¦       ¦   ¦               System.Drawing.Common.dll
+    ¦   ¦       ¦   ¦               
+    ¦   ¦       ¦   +---win
+    ¦   ¦       ¦   ¦   +---lib
+    ¦   ¦       ¦   ¦       +---net6.0
+    ¦   ¦       ¦   ¦               Microsoft.Data.SqlClient.dll
+    ¦   ¦       ¦   ¦               Microsoft.Win32.SystemEvents.dll
+    ¦   ¦       ¦   ¦               System.Drawing.Common.dll
+    ¦   ¦       ¦   ¦               System.Runtime.Caching.dll
+    ¦   ¦       ¦   ¦               System.Security.Cryptography.ProtectedData.dll
+    ¦   ¦       ¦   ¦               System.Windows.Extensions.dll
+    ¦   ¦       ¦   ¦               
+    ¦   ¦       ¦   +---win-arm
+    ¦   ¦       ¦   ¦   +---native
+    ¦   ¦       ¦   ¦           Microsoft.Data.SqlClient.SNI.dll
+    ¦   ¦       ¦   ¦           
+    ¦   ¦       ¦   +---win-arm64
+    ¦   ¦       ¦   ¦   +---native
+    ¦   ¦       ¦   ¦           Microsoft.Data.SqlClient.SNI.dll
+    ¦   ¦       ¦   ¦           
+    ¦   ¦       ¦   +---win-x64
+    ¦   ¦       ¦   ¦   +---native
+    ¦   ¦       ¦   ¦           Microsoft.Data.SqlClient.SNI.dll
+    ¦   ¦       ¦   ¦           
+    ¦   ¦       ¦   +---win-x86
+    ¦   ¦       ¦       +---native
+    ¦   ¦       ¦               Microsoft.Data.SqlClient.SNI.dll
+    ¦   ¦       ¦               
+    ¦   ¦       +---tr
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---zh-Hans
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦       ¦       Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---zh-Hant
+    ¦   ¦               Microsoft.CodeAnalysis.CSharp.resources.dll
+    ¦   ¦               Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+    ¦   ¦               Microsoft.CodeAnalysis.resources.dll
+    ¦   ¦               Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+    ¦   ¦               Microsoft.CodeAnalysis.Workspaces.resources.dll
+    ¦   ¦               
+    ¦   +---Release
+    ¦       +---net8.0
+    +---Controllers
+    ¦       AccountController.cs
+    ¦       AdminController.cs
+    ¦       CartController.cs
+    ¦       CheckoutController.cs
+    ¦       GamesController.cs
+    ¦       HomeController.cs
+    ¦       OrderController.cs
+    ¦       PublisherController.cs
+    ¦       UserController.cs
+    ¦       
+    +---Filters
+    ¦       UiExceptionFilter.cs
+    ¦       
+    +---Models
+    ¦       ErrorViewModel.cs
+    ¦       
+    +---obj
+    ¦   ¦   GameStore.PL.csproj.nuget.dgspec.json
+    ¦   ¦   GameStore.PL.csproj.nuget.g.props
+    ¦   ¦   GameStore.PL.csproj.nuget.g.targets
+    ¦   ¦   project.assets.json
+    ¦   ¦   project.nuget.cache
+    ¦   ¦   
+    ¦   +---Debug
+    ¦   ¦   +---net8.0
+    ¦   ¦       ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+    ¦   ¦       ¦   ApiEndpoints.json
+    ¦   ¦       ¦   apphost.exe
+    ¦   ¦       ¦   GameStor.93D79DB5.Up2Date
+    ¦   ¦       ¦   GameStore.PL.AssemblyInfo.cs
+    ¦   ¦       ¦   GameStore.PL.AssemblyInfoInputs.cache
+    ¦   ¦       ¦   GameStore.PL.assets.cache
+    ¦   ¦       ¦   GameStore.PL.csproj.AssemblyReference.cache
+    ¦   ¦       ¦   GameStore.PL.csproj.BuildWithSkipAnalyzers
+    ¦   ¦       ¦   GameStore.PL.csproj.CoreCompileInputs.cache
+    ¦   ¦       ¦   GameStore.PL.csproj.FileListAbsolute.txt
+    ¦   ¦       ¦   GameStore.PL.dll
+    ¦   ¦       ¦   GameStore.PL.GeneratedMSBuildEditorConfig.editorconfig
+    ¦   ¦       ¦   GameStore.PL.genruntimeconfig.cache
+    ¦   ¦       ¦   GameStore.PL.GlobalUsings.g.cs
+    ¦   ¦       ¦   GameStore.PL.MvcApplicationPartsAssemblyInfo.cache
+    ¦   ¦       ¦   GameStore.PL.pdb
+    ¦   ¦       ¦   GameStore.PL.RazorAssemblyInfo.cache
+    ¦   ¦       ¦   GameStore.PL.RazorAssemblyInfo.cs
+    ¦   ¦       ¦   GameStore.PL.sourcelink.json
+    ¦   ¦       ¦   rjimswa.dswa.cache.json
+    ¦   ¦       ¦   rjsmcshtml.dswa.cache.json
+    ¦   ¦       ¦   rjsmrazor.dswa.cache.json
+    ¦   ¦       ¦   rpswa.dswa.cache.json
+    ¦   ¦       ¦   staticwebassets.build.endpoints.json
+    ¦   ¦       ¦   staticwebassets.build.json
+    ¦   ¦       ¦   staticwebassets.build.json.cache
+    ¦   ¦       ¦   staticwebassets.development.json
+    ¦   ¦       ¦   staticwebassets.pack.json
+    ¦   ¦       ¦   staticwebassets.references.upToDateCheck.txt
+    ¦   ¦       ¦   staticwebassets.removed.txt
+    ¦   ¦       ¦   staticwebassets.upToDateCheck.txt
+    ¦   ¦       ¦   
+    ¦   ¦       +---ref
+    ¦   ¦       ¦       GameStore.PL.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---refint
+    ¦   ¦       ¦       GameStore.PL.dll
+    ¦   ¦       ¦       
+    ¦   ¦       +---scopedcss
+    ¦   ¦       ¦   +---bundle
+    ¦   ¦       ¦   ¦       GameStore.PL.styles.css
+    ¦   ¦       ¦   ¦       
+    ¦   ¦       ¦   +---projectbundle
+    ¦   ¦       ¦   ¦       GameStore.PL.bundle.scp.css
+    ¦   ¦       ¦   ¦       
+    ¦   ¦       ¦   +---Views
+    ¦   ¦       ¦       +---Shared
+    ¦   ¦       ¦               _Layout.cshtml.rz.scp.css
+    ¦   ¦       ¦               
+    ¦   ¦       +---staticwebassets
+    ¦   ¦               msbuild.build.GameStore.PL.props
+    ¦   ¦               msbuild.buildMultiTargeting.GameStore.PL.props
+    ¦   ¦               msbuild.buildTransitive.GameStore.PL.props
+    ¦   ¦               msbuild.GameStore.PL.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+    ¦   ¦               msbuild.GameStore.PL.Microsoft.AspNetCore.StaticWebAssets.props
+    ¦   ¦               
+    ¦   +---Release
+    ¦       +---net8.0
+    ¦           ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+    ¦           ¦   GameStore.PL.AssemblyInfo.cs
+    ¦           ¦   GameStore.PL.AssemblyInfoInputs.cache
+    ¦           ¦   GameStore.PL.assets.cache
+    ¦           ¦   GameStore.PL.GeneratedMSBuildEditorConfig.editorconfig
+    ¦           ¦   GameStore.PL.GlobalUsings.g.cs
+    ¦           ¦   GameStore.PL.RazorAssemblyInfo.cache
+    ¦           ¦   GameStore.PL.RazorAssemblyInfo.cs
+    ¦           ¦   
+    ¦           +---ref
+    ¦           +---refint
+    +---Properties
+    ¦       launchSettings.json
+    ¦       
+    +---Views
+    ¦   ¦   _ViewImports.cshtml
+    ¦   ¦   _ViewStart.cshtml
+    ¦   ¦   
+    ¦   +---Account
+    ¦   ¦       AccessDenied.cshtml
+    ¦   ¦       Login.cshtml
+    ¦   ¦       Register.cshtml
+    ¦   ¦       
+    ¦   +---Admin
+    ¦   ¦       Dashboard.cshtml
+    ¦   ¦       ReviewGames.cshtml
+    ¦   ¦       
+    ¦   +---Cart
+    ¦   ¦       Index.cshtml
+    ¦   ¦       
+    ¦   +---Checkout
+    ¦   ¦       Cancel.cshtml
+    ¦   ¦       Error.cshtml
+    ¦   ¦       Index.cshtml
+    ¦   ¦       Success.cshtml
+    ¦   ¦       
+    ¦   +---Games
+    ¦   ¦       Index.cshtml
+    ¦   ¦       
+    ¦   +---Home
+    ¦   ¦       About.cshtml
+    ¦   ¦       Index.cshtml
+    ¦   ¦       Privacy.cshtml
+    ¦   ¦       
+    ¦   +---Order
+    ¦   ¦       GetAllOrders.cshtml
+    ¦   ¦       
+    ¦   +---Publisher
+    ¦   ¦       MyGames.cshtml
+    ¦   ¦       UploadGame.cshtml
+    ¦   ¦       
+    ¦   +---Shared
+    ¦   ¦       AccessDenied.cshtml
+    ¦   ¦       Error.cshtml
+    ¦   ¦       StatusCode.cshtml
+    ¦   ¦       _ErrorToastPartial.cshtml
+    ¦   ¦       _Layout.cshtml
+    ¦   ¦       _Layout.cshtml.css
+    ¦   ¦       _SuccessToastPartial.cshtml
+    ¦   ¦       _ValidationScriptsPartial.cshtml
+    ¦   ¦       
+    ¦   +---User
+    ¦           GetUser.cshtml
+    ¦           User.cshtml
+    ¦           
+    +---wwwroot
+        ¦   favicon.ico
+        ¦   
+        +---css
+        ¦       site.css
+        ¦       
+        +---Files
+        ¦       03701fc7-f558-4a1e-8dbf-aec83e51e4c1html.png
+        ¦       2180d862-95c4-4b16-8924-e69d92982911html.png
+        ¦       43b71d38-c6e0-4803-83b2-c81d36f81c67html.png
+        ¦       79e36f37-f18e-432d-bd2d-f1431542e439html.png
+        ¦       7f93eb53-ab8d-41e7-a788-d411427d34f8html.png
+        ¦       dde1eae9-8ad8-4b9d-b5ac-e82c076a1d3ehtml.png
+        ¦       f9b7ced0-dd29-44b5-81ad-69c96b2a9280Screenshot 2025-07-12 200701.png
+        ¦       
+        +---js
+        ¦       site.js
+        ¦       
+        +---lib
+        ¦   +---bootstrap
+        ¦   ¦   ¦   LICENSE
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦       +---css
+        ¦   ¦       ¦       bootstrap-grid.css
+        ¦   ¦       ¦       bootstrap-grid.css.map
+        ¦   ¦       ¦       bootstrap-grid.min.css
+        ¦   ¦       ¦       bootstrap-grid.min.css.map
+        ¦   ¦       ¦       bootstrap-grid.rtl.css
+        ¦   ¦       ¦       bootstrap-grid.rtl.css.map
+        ¦   ¦       ¦       bootstrap-grid.rtl.min.css
+        ¦   ¦       ¦       bootstrap-grid.rtl.min.css.map
+        ¦   ¦       ¦       bootstrap-reboot.css
+        ¦   ¦       ¦       bootstrap-reboot.css.map
+        ¦   ¦       ¦       bootstrap-reboot.min.css
+        ¦   ¦       ¦       bootstrap-reboot.min.css.map
+        ¦   ¦       ¦       bootstrap-reboot.rtl.css
+        ¦   ¦       ¦       bootstrap-reboot.rtl.css.map
+        ¦   ¦       ¦       bootstrap-reboot.rtl.min.css
+        ¦   ¦       ¦       bootstrap-reboot.rtl.min.css.map
+        ¦   ¦       ¦       bootstrap-utilities.css
+        ¦   ¦       ¦       bootstrap-utilities.css.map
+        ¦   ¦       ¦       bootstrap-utilities.min.css
+        ¦   ¦       ¦       bootstrap-utilities.min.css.map
+        ¦   ¦       ¦       bootstrap-utilities.rtl.css
+        ¦   ¦       ¦       bootstrap-utilities.rtl.css.map
+        ¦   ¦       ¦       bootstrap-utilities.rtl.min.css
+        ¦   ¦       ¦       bootstrap-utilities.rtl.min.css.map
+        ¦   ¦       ¦       bootstrap.css
+        ¦   ¦       ¦       bootstrap.css.map
+        ¦   ¦       ¦       bootstrap.min.css
+        ¦   ¦       ¦       bootstrap.min.css.map
+        ¦   ¦       ¦       bootstrap.rtl.css
+        ¦   ¦       ¦       bootstrap.rtl.css.map
+        ¦   ¦       ¦       bootstrap.rtl.min.css
+        ¦   ¦       ¦       bootstrap.rtl.min.css.map
+        ¦   ¦       ¦       
+        ¦   ¦       +---js
+        ¦   ¦               bootstrap.bundle.js
+        ¦   ¦               bootstrap.bundle.js.map
+        ¦   ¦               bootstrap.bundle.min.js
+        ¦   ¦               bootstrap.bundle.min.js.map
+        ¦   ¦               bootstrap.esm.js
+        ¦   ¦               bootstrap.esm.js.map
+        ¦   ¦               bootstrap.esm.min.js
+        ¦   ¦               bootstrap.esm.min.js.map
+        ¦   ¦               bootstrap.js
+        ¦   ¦               bootstrap.js.map
+        ¦   ¦               bootstrap.min.js
+        ¦   ¦               bootstrap.min.js.map
+        ¦   ¦               
+        ¦   +---jquery
+        ¦   ¦   ¦   LICENSE.txt
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦           jquery.js
+        ¦   ¦           jquery.min.js
+        ¦   ¦           jquery.min.map
+        ¦   ¦           
+        ¦   +---jquery-validation
+        ¦   ¦   ¦   LICENSE.md
+        ¦   ¦   ¦   
+        ¦   ¦   +---dist
+        ¦   ¦           additional-methods.js
+        ¦   ¦           additional-methods.min.js
+        ¦   ¦           jquery.validate.js
+        ¦   ¦           jquery.validate.min.js
+        ¦   ¦           
+        ¦   +---jquery-validation-unobtrusive
+        ¦           jquery.validate.unobtrusive.js
+        ¦           jquery.validate.unobtrusive.min.js
+        ¦           LICENSE.txt
+        ¦           
+        +---uploads

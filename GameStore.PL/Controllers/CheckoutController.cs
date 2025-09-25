@@ -1,37 +1,76 @@
-using GameStore.BLL.Service;
-using GameStore.BLL.Service.Implementations;
-using GameStore.DAL.Entities;
+﻿using System.Security.Claims;
+using GameStore.BLL.ModelVM.Order;
+using GameStore.BLL.Service.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-[Authorize(Roles = "Customer")]
+[Authorize(Roles = "User,Customer")]
 public class CheckoutController : Controller
 {
-    private readonly CheckoutService _checkoutService;
+    private readonly ICheckoutService _checkoutService;
+    private readonly IGameService _gameService;
 
-    public CheckoutController(CheckoutService checkoutService)
+    public CheckoutController(ICheckoutService checkoutService, IGameService gameService)
     {
         _checkoutService = checkoutService;
+        _gameService = gameService;
     }
 
-    public async Task<IActionResult> Pay(int gameId)
+    // صفحة عرض Checkout (Cart Summary + Total)
+    [HttpGet]
+    public IActionResult Index(List<int> gameIds)
     {
-       
-        var userId = int.Parse(User.FindFirst("UserId").Value);
+        if (gameIds == null || !gameIds.Any())
+            return RedirectToAction("Index", "Cart");
+
+        // الأفضل تعمل GetByIds في الـ Service بدل ما تجيب الكل وتفلتر
+        var games = _gameService.GetAll()
+                                .Where(g => gameIds.Contains(g.Id))
+                                .ToList();
+
+        var orderVm = new OrderVM
+        {
+            TotalAmount = games.Sum(g => g.Price),
+            Games = games.Select(g => g.Title).ToList(),
+            Status = "Preparing"
+        };
+
+        return View(orderVm);
+    }
+
+    // تنفيذ الدفع
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Pay(OrderCreateModel model)
+    {
+        if (model.GameIds == null || !model.GameIds.Any())
+            return RedirectToAction("Index", "Cart");
+
+        // ناخد الـ UserId من الـ Claims (مش من الفورم – أأمن)
+        var uidStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(uidStr))
+            return RedirectToAction("Login", "Account");
+
+        model.UserId = int.Parse(uidStr);
 
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var (orderId, approvalUrl) = await _checkoutService.CreateCheckout(userId, gameId, baseUrl);
-        return Redirect(approvalUrl);
+        var (orderId, approvalUrl) = await _checkoutService.CreateCheckout(model, baseUrl);
+
+        return Redirect(approvalUrl); // المستخدم يتحوّل لصفحة PayPal
     }
 
+    // نجاح الدفع
+    [HttpGet]
     public async Task<IActionResult> Success(int orderId, string paymentId, string PayerID)
     {
-        var order = await _checkoutService.ConfirmCheckout(orderId, paymentId, PayerID);
-        return View(order);  
+        var orderVm = await _checkoutService.ConfirmCheckout(orderId, paymentId, PayerID);
+        return View(orderVm); // تعرض تفاصيل الأوردر والدفع
     }
 
+    // إلغاء الدفع
+    [HttpGet]
     public IActionResult Cancel()
     {
-        return View();
+        TempData["ErrorMessage"] = "تم إلغاء عملية الدفع.";
+        return RedirectToAction("Index", "Cart");
     }
 }

@@ -12,6 +12,7 @@ namespace GameStore.DAL.Repo.Abstractions
         void DeleteItem(int orderId, int gameId);
         void AddItem(int orderId, int gameId);
 
+        void Create(OrderItem item);
         //void Clear(int orderId);
 
         // Reads

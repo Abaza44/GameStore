@@ -103,6 +103,10 @@ namespace GameStore.DAL.Repo.Implementations
                 .Where(oi => oi.OrderId == orderId).Sum(oi => oi.UnitPrice);
         }
         public bool ExistsByGameId(int gameId) => _context.OrderItems.Any(x => x.GameId == gameId);
-        
+        public void Create(OrderItem item)
+        {
+            _context.OrderItems.Add(item);
+            _context.SaveChanges();
+        }
     }
 }
