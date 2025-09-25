@@ -11,7 +11,7 @@
 
     @if (!hasAny)
     {
-        <div class="alert alert-info mt-3">لا توجد ألعاب قيد المراجعة حالياً.</div>
+        <div class="alert alert-info mt-3">No games are currently pending review.</div>
     }
     else
     {
@@ -45,14 +45,14 @@
                             <form asp-action="Reject" method="post" class="d-inline ms-1">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="gameId" value="@game.Id" />
-                                <input type="text" name="reason" placeholder="Reason"
+                                <input type="text" name="reason" placeholder="Rejection reason"
                                        class="form-control form-control-sm d-inline w-auto" style="min-width:150px;" />
-                                <button class="btn btn-danger btn-sm ms-1">Reject</button>
+                                <button class="btn btn-warning btn-sm ms-1">Reject</button>
                             </form>
 
-                            <!-- Delete (GamesController.DeleteGame) -->
+                            <!-- Delete -->
                             <form asp-controller="Games" asp-action="DeleteGame" method="post"
-                                  class="d-inline ms-1"
+                                  class="d-inline"
                                   onsubmit="return confirm('Are you sure you want to delete this game?');">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="gameId" value="@game.Id" />

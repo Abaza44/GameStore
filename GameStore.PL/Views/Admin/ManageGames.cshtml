@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GameStore.BLL.ModelVM.Game.GameViewModel>
+@using GameStore.DAL.Enums
+
+<div class="container mt-4">
+    <h2>🎮 All Games Management</h2>
+
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Price</th>
+                <th>Publisher</th>
+                <th>Rejection Reason</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>
+                        @if (game.Status == GameStatus.Pending)
+                        {
+                            <span class="badge bg-warning">Pending</span>
+                        }
+                        else if (game.Status == GameStatus.Approved)
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                    </td>
+                    <td>$@game.Price</td>
+                    <td>@game.PublisherName</td>
+                    <td>@game.RejectionReason</td>
+                    <td>
+                        <form asp-controller="Games" asp-action="DeleteGame" method="post"
+                              onsubmit="return confirm('Are you sure you want to delete this game?');">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="gameId" value="@game.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

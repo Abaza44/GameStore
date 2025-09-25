@@ -1,4 +1,5 @@
 ﻿using GameStore.BLL.Service.Abstractions;
+using GameStore.BLL.Service.Implementations;
 using GameStore.DAL.DB;
 using GameStore.DAL.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,19 @@ namespace GameStore.PL.Controllers
     {
         private readonly IUserService _userService;
         private readonly GameStoreContext _context;
+        private readonly IGameService _gameService;
 
-        public AdminController(IUserService userService, GameStoreContext context)
+
+        public AdminController(IUserService userService, GameStoreContext context, IGameService gameService)
         {
             _userService = userService;
             _context = context;
+            _gameService = gameService;
+        }
+        public IActionResult ManageGames()
+        {
+            var games = _gameService.GetAllGamesAdmin();
+            return View(games);
         }
 
         // ✅ Users Dashboard
@@ -52,7 +61,7 @@ namespace GameStore.PL.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        
         public IActionResult Approve(int gameId)
         {
             var game = _context.Games.Find(gameId);
@@ -65,7 +74,7 @@ namespace GameStore.PL.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        
         public IActionResult Reject(int gameId, string reason)
         {
             var game = _context.Games.Find(gameId);

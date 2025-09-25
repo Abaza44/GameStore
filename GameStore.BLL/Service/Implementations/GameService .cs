@@ -1,4 +1,4 @@
-using GameStore.BLL.ModelVM.Game;
+﻿using GameStore.BLL.ModelVM.Game;
 using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
@@ -133,17 +133,27 @@ namespace GameStore.BLL.Service.Implementations
                 RejectionReason = g.RejectionReason
             };
         }
-
+        public async Task<IEnumerable<GameViewModel>> GetAllGamesAdminAsync()
+        {
+            var games = await _gameRepo.GetAllGamesAsync();
+            return games.Select(MapToView);
+        }
         public void DeleteGame(int gameId, int currentUserId, bool isCurrentUserAdmin)
         {
             var game = _gameRepo.GetById(gameId) ?? throw new KeyNotFoundException("Game not found.");
 
+            // لو مش أدمن → لازم يكون هو المالك
             if (!isCurrentUserAdmin && game.PublisherId != currentUserId)
                 throw new UnauthorizedAccessException("You do not have permission to delete this game.");
 
-            if (_orderItemRepo.ExistsByGameId(gameId) || _userLibraryRepo.ExistsByGameId(gameId))
-                throw new InvalidOperationException("Cannot delete a game that has purchases or exists in users' libraries.");
+            // الناشر متسمحلوش لو اللعبة متباعة
+            if (!isCurrentUserAdmin &&
+                (_orderItemRepo.ExistsByGameId(gameId) || _userLibraryRepo.ExistsByGameId(gameId)))
+            {
+                throw new InvalidOperationException("You cannot delete a game that has purchases or exists in player libraries.");
+            }
 
+            // الأدمن يقدر يعمل Force Delete
             _gameRepo.Delete(game);
         }
 
@@ -194,7 +204,10 @@ namespace GameStore.BLL.Service.Implementations
             var games = await _gameRepo.GetRejectedGamesAsync();
             return games.Select(MapToView);
         }
-
+        public IEnumerable<GameViewModel> GetAllGamesAdmin()
+        {
+            return _gameRepo.GetAllGames().Select(MapToView);
+        }
         public GameViewModel AddGame(GameCreateModel model, int publisherId)
         {
             var PosterUrlPath = Upload.UploadFile("Files", model.PosterUrl);
