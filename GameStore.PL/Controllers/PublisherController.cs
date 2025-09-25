@@ -19,7 +19,7 @@ namespace GameStore.PL.Controllers
             _categoryService = categoryService;
         }
 
-        // عرض الألعاب الخاصة بالـ Publisher الحالي
+        
         public IActionResult MyGames()
         {
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
