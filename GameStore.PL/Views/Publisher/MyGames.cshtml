@@ -25,7 +25,6 @@
         <tbody>
             @foreach (var game in Model)
             {
-            
                 <tr>
                     <td>@game.Title</td>
                     <td>@game.Description</td>
@@ -44,7 +43,20 @@
                             <span class="badge bg-warning text-dark">Pending</span>
                         }
                     </td>
-                    <td>@game.RejectionReason</td>
+                    <td>
+                        @if (game.Status == GameStatus.Rejected && !string.IsNullOrEmpty(game.RejectionReason))
+                        {
+                            <span class="text-danger">@game.RejectionReason</span>
+                        }
+                        else if (game.Status == GameStatus.Rejected)
+                        {
+                            <span class="text-muted">No reason provided</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
                     <td>
                         <form asp-controller="Games" asp-action="DeleteGame" method="post"
                               onsubmit="return confirm('Are you sure you want to delete this game?');">

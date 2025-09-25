@@ -129,7 +129,8 @@ namespace GameStore.BLL.Service.Implementations
                 CategoryName = g.Category?.Name ?? "",
                 PublisherName = g.Publisher?.FullName ?? "",
                 Status = g.Status,  
-                CreatedAt = g.CreatedAt
+                CreatedAt = g.CreatedAt,
+                RejectionReason = g.RejectionReason
             };
         }
 
