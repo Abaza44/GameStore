@@ -49,7 +49,18 @@
                                     <a asp-controller="Admin" asp-action="ReviewGames" class="nav-link">Review Games</a>
                                 </li>
                             }
-
+                            // ==========CART ==========
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                                @if (User.IsInRole("User"))
+                                {
+                                    <li class="nav-item">
+                                        <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                            <i class="fa-solid fa-cart-shopping me-1"></i> Cart
+                                        </a>
+                                    </li>
+                                }
+                            }
                             @* Publisher فقط *@
                             @if (User.IsInRole("Publisher"))
                             {

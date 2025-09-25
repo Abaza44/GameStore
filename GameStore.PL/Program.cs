@@ -1,11 +1,12 @@
 ﻿using GameStore.BLL.Service.Abstractions;
 using GameStore.BLL.Service.Implementations;
+using GameStore.BLL.Services;
 using GameStore.DAL.DB;
 using GameStore.DAL.Repo.Abstractions;
 using GameStore.DAL.Repo.Implementations;
+using GameStore.PL.Filters;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using GameStore.PL.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,11 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<ICartService, CartService>();
+// وتأكد من تسجيل الريبو:
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+builder.Services.AddScoped<IGameRepo, GameRepo>();
 var app = builder.Build();
 
 // Auto-migrate + seed

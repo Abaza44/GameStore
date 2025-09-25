@@ -18,6 +18,7 @@ namespace GameStore.DAL.Repo.Abstractions
         
 
         int CountByStatus(OrderStatus status);//For Admin Dashboard
-
+        Order? GetPendingOrderForUser(int userId);
+        void Update(Order order);
     }
 }

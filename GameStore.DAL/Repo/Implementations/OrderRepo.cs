@@ -67,5 +67,16 @@ namespace GameStore.DAL.Repo.Implementations
 
         public int CountByStatus(OrderStatus status)
             => _context.Orders.Count(o => o.Status == status);
+
+        public Order? GetPendingOrderForUser(int userId)
+            => _context.Orders
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Game)
+            .FirstOrDefault(o => o.UserId == userId && o.Status == OrderStatus.Pending);
+        public void Update(Order order)
+        {
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+        }
     }
 }
