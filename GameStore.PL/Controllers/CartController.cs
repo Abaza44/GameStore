@@ -49,7 +49,7 @@ namespace GameStore.PL.Controllers
 
             var userId = int.Parse(uidStr);
             _cartService.RemoveFromCart(userId, gameId);
-            TempData["SuccessMessage"] = "تم حذف اللعبة من السلة.";
+            TempData["SuccessMessage"] = "The game has been deleted.";
             return RedirectToAction("Index");
         }
 
@@ -61,7 +61,7 @@ namespace GameStore.PL.Controllers
 
             var userId = int.Parse(uidStr);
             _cartService.ClearCart(userId);
-            TempData["SuccessMessage"] = "تم تفريغ السلة.";
+            TempData["SuccessMessage"] = "Cart is empty.";
             return RedirectToAction("Index");
         }
     }

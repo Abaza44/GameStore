@@ -70,7 +70,7 @@ public class CheckoutController : Controller
     [HttpGet]
     public IActionResult Cancel()
     {
-        TempData["ErrorMessage"] = "تم إلغاء عملية الدفع.";
+        TempData["ErrorMessage"] = "Payment request cancelled.";
         return RedirectToAction("Index", "Cart");
     }
 }
