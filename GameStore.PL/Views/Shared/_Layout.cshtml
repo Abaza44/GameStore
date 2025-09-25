@@ -35,9 +35,6 @@
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
-                            <li class="nav-item">
-                                <span class="nav-link text-white">Welcome, @User.Identity.Name</span>
-                            </li>
 
                             @* Admin فقط *@
                             @if (User.IsInRole("Admin"))
@@ -67,9 +64,9 @@
                                 <li class="nav-item">
                                     <a asp-controller="Publisher" asp-action="MyGames" class="nav-link">My Games</a>
                                 </li>
-                                <li class="nav-item">
+                                @* <li class="nav-item">
                                     <a asp-controller="Publisher" asp-action="UploadGame" class="nav-link">Upload Game</a>
-                                </li>
+                                </li> *@
                             }
 
                             <li class="nav-item">
