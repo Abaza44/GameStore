@@ -9,6 +9,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-J5O..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        html, body {
+            height: 100%; /* عشان الفليكس يشتغل على طول الشاشة */
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1; /* ياخد المساحة المتبقية */
+        }
+
+        footer {
+            margin-top: auto; /* يفضل دايمًا تحت */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,20 +42,14 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- روابط عامة -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">About</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="Games" asp-action="Index">Games</a></li>
                     </ul>
 
-                    <!-- حسب حالة المستخدم -->
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
-
-                            @* Admin فقط *@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -48,28 +61,22 @@
                                 <li class="nav-item">
                                     <a asp-controller="Admin" asp-action="ManageGames" class="nav-link">Manage Games</a>
                                 </li>
+                                <li class="nav-item"><a asp-controller="Admin" asp-action="Dashboard" class="nav-link">Admin Dashboard</a></li>
+                                <li class="nav-item"><a asp-controller="Admin" asp-action="ReviewGames" class="nav-link">Review Games</a></li>
                             }
-                            // ==========CART ==========
-                            @if (User.Identity?.IsAuthenticated ?? false)
-                            {
-                                @if (User.IsInRole("User"))
-                                {
-                                    <li class="nav-item">
-                                        <a asp-controller="Cart" asp-action="Index" class="nav-link">
-                                            <i class="fa-solid fa-cart-shopping me-1"></i> Cart
-                                        </a>
-                                    </li>
-                                }
-                            }
-                            @* Publisher فقط *@
-                            @if (User.IsInRole("Publisher"))
+
+                            @if (User.IsInRole("User"))
                             {
                                 <li class="nav-item">
-                                    <a asp-controller="Publisher" asp-action="MyGames" class="nav-link">My Games</a>
+                                    <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                        <i class="fa-solid fa-cart-shopping me-1"></i> Cart
+                                    </a>
                                 </li>
-                                @* <li class="nav-item">
-                                    <a asp-controller="Publisher" asp-action="UploadGame" class="nav-link">Upload Game</a>
-                                </li> *@
+                            }
+
+                            @if (User.IsInRole("Publisher"))
+                            {
+                                <li class="nav-item"><a asp-controller="Publisher" asp-action="MyGames" class="nav-link">My Games</a></li>
                             }
 
                             <li class="nav-item">
@@ -81,15 +88,10 @@
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
-                            </li>
+                            <li class="nav-item"><a asp-controller="Account" asp-action="Login" class="nav-link">Login</a></li>
+                            <li class="nav-item"><a asp-controller="Account" asp-action="Register" class="nav-link">Register</a></li>
                         }
 
-                        <!-- زر الوضع الليلي -->
                         <li class="nav-item">
                             <button id="darkModeToggle" class="btn btn-sm btn-outline-light ms-2" type="button" title="Toggle theme">
                                 <i class="fa-solid fa-moon"></i>
@@ -101,11 +103,11 @@
         </nav>
     </header>
 
-    <div class="container mt-4">
+    <main class="container mt-4">
         @RenderBody()
-    </div>
+    </main>
 
-    <footer class="bg-dark text-light text-center py-3 mt-5">
+    <footer class="bg-dark text-light text-center py-3">
         &copy; @DateTime.Now.Year - GameStore
     </footer>
 
@@ -116,7 +118,5 @@
     @RenderSection("Scripts", required: false)
     @await Html.PartialAsync("_SuccessToastPartial")
     @await Html.PartialAsync("_ErrorToastPartial")
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
