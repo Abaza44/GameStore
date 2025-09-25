@@ -3,6 +3,7 @@ using GameStore.BLL.Service.Abstractions;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using GameStore.DAL.Repo.Abstractions;
+using MVCproject3tier.BLL.Helper;
 
 namespace GameStore.BLL.Service.Implementations
 {
@@ -21,13 +22,14 @@ namespace GameStore.BLL.Service.Implementations
 
         public GameViewModel AddGame(GameCreateModel model)
         {
+            var PosterUrlPath = Upload.UploadFile("Files", model.PosterUrl);
             var game = new Game
             {
                 CategoryId = model.CategoryId,
                 PublisherId = model.PublisherId,
                 Title = model.Title,
                 Description = model.Description,
-                PosterUrl = model.PosterUrl,
+                PosterUrl = PosterUrlPath,
                 Price = model.Price,
                 DownloadUrl = model.DownloadUrl,
                 Status = GameStatus.Pending,

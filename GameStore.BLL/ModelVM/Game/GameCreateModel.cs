@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace GameStore.BLL.ModelVM.Game
         public int PublisherId { get; set; }
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
-        public string PosterUrl { get; set; } = null!;
+        public IFormFile PosterUrl { get; set; } = null!;
         public decimal Price { get; set; }
         public string DownloadUrl { get; set; } = null!;
     }
