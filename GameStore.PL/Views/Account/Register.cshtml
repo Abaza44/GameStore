@@ -2,44 +2,48 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-lg rounded-3" style="width: 28rem;">
+        <div class="card-body p-4">
+            <h2 class="text-center mb-4 text-primary">Register</h2>
 
-<form asp-action="Register" asp-controller="Account" method="post">
-    @Html.AntiForgeryToken()
+            <form asp-action="Register" asp-controller="Account" method="post">
+                @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" name="fullName" id="name" class="form-control" required />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" name="fullName" id="name" class="form-control" required placeholder="Enter your full name" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" id="email" class="form-control" required placeholder="example@mail.com" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" required placeholder="Enter your password" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="DOB" class="form-label">Date of Birth</label>
+                    <input type="date" name="dateOfBirth" id="DOB" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-block">Role</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="role" id="user" value="User">
+                        <label class="form-check-label" for="user">User</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="role" id="publisher" value="Publisher">
+                        <label class="form-check-label" for="publisher">Publisher</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label for="DOB">Date of Birth</label>
-        <input type="date" name="dateOfBirth" id="DOB" class="form-control" />
-    </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="role" id="user" value="User">
-        <label class="form-check-label" for="user">
-            User
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="role" id="publisher" value="Publisher">
-        <label class="form-check-label" for="publisher">
-            Publisher
-        </label>
-    </div>
-
-
-    <button type="submit" class="btn btn-primary mt-3">Register</button>
-</form>
+</div>
