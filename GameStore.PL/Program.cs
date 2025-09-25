@@ -45,6 +45,7 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 // وتأكد من تسجيل الريبو:
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();

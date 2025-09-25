@@ -1,4 +1,6 @@
-﻿using GameStore.DAL.DB;
+﻿using GameStore.BLL.ModelVM.Game;
+using GameStore.BLL.Service.Abstractions;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -9,11 +11,12 @@ namespace GameStore.PL.Controllers
     [Authorize(Roles = "Publisher")]
     public class PublisherController : Controller
     {
-        private readonly GameStoreContext _context;
-
-        public PublisherController(GameStoreContext context)
+        private readonly IGameService _gameService;
+        private readonly ICategoryService _categoryService;
+        public PublisherController(IGameService gameService, ICategoryService categoryService)
         {
-            _context = context;
+            _gameService = gameService;
+            _categoryService = categoryService;
         }
 
         // عرض الألعاب الخاصة بالـ Publisher الحالي
@@ -21,41 +24,25 @@ namespace GameStore.PL.Controllers
         {
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 
-            var games = _context.Games
-                .Where(g => g.PublisherId == userId)
-                .ToList();
+            var games = _gameService.GetByPublisher(userId).ToList();
 
             return View(games);
         }
 
         // صفحة رفع لعبة جديدة
         [HttpGet]
-        
         public IActionResult UploadGame()
         {
-            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Categories = _categoryService.GetAll().ToList();
             return View();
         }
 
         [HttpPost]
-        public IActionResult UploadGame(string title, string description, string posterUrl, string downloadUrl, decimal price, int categoryId)
+        public IActionResult UploadGame(GameCreateModel game)
         {
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-
-            var game = new Game
-            {
-                Title = title,
-                Description = description,
-                PosterUrl = posterUrl,
-                DownloadUrl = downloadUrl,
-                Price = price,
-                PublisherId = userId,
-                CategoryId = categoryId,             // ✅ لازم Category صالح
-                Status = GameStatus.Pending
-            };
-
-            _context.Games.Add(game);
-            _context.SaveChanges();
+            game.PublisherId = userId;
+            _gameService.AddGame(game);
             TempData["msg"] = "Game uploaded and waiting admin approval.";
             return RedirectToAction("MyGames");
         }

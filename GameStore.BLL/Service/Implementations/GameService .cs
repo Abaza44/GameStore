@@ -4,11 +4,11 @@ using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using GameStore.DAL.Repo.Abstractions;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 using MVCproject3tier.BLL.Helper;
-=======
+//=======
 using Microsoft.EntityFrameworkCore;
->>>>>>> 908895a1a07d068accb4ce025a9a3c4b98743649
+//>>>>>>> 908895a1a07d068accb4ce025a9a3c4b98743649
 
 namespace GameStore.BLL.Service.Implementations
 {

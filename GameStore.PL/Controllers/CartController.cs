@@ -37,7 +37,7 @@ namespace GameStore.PL.Controllers
 
             var userId = int.Parse(uidStr);
             _cartService.AddToCart(userId, gameId);
-            TempData["SuccessMessage"] = "تمت إضافة اللعبة إلى السلة.";
+            TempData["SuccessMessage"] = "One game has been added.";
             return Redirect(Request.Headers["Referer"].ToString() ?? Url.Action("Index", "Cart")!);
         }
 

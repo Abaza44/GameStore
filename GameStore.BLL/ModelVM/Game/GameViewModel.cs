@@ -19,5 +19,6 @@ namespace GameStore.BLL.ModelVM.Game
         public GameStatus Status { get; set; }
         public int Count { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string RejectionReason { get; set; }
     }
 }

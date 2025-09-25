@@ -27,18 +27,20 @@ namespace GameStore.PL.Controllers
         //=======================Regester======================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(
-    string fullName,
-    string email,
-    string password,
-    DateTime dateOfBirth,
-    bool emailConfirmed = false)
+        public async Task<IActionResult> Register
+        (
+            string fullName,
+            string email,
+            string password,
+            DateTime dateOfBirth,
+            UserRole role
+        )
         {
             var user = await _authService.RegisterAsync(
                 fullName, email, password, dateOfBirth,
                 null,                 // profile picture disabled for now
-                UserRole.User,        // 🟢 ثابت User
-                emailConfirmed);
+                role        
+            );
 
             await SignInUser(user);
             return RedirectToAction("Index", "Home");
