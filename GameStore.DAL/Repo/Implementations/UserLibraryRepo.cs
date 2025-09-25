@@ -29,7 +29,7 @@ namespace GameStore.DAL.Repo.Implementations
                            .ToList();
         }
         public IEnumerable<int> GetOwnedGameIds(int userId)
-        {
+                => _context.UserGames
             return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)
                 .Select(ug => ug.GameId).ToList();
         }
@@ -42,7 +42,7 @@ namespace GameStore.DAL.Repo.Implementations
         {
             if (!OwnsGame(userId, gameId))
             {
-                var userGame = new UserGame
+                _context.UserGames.Add(new UserGame
                 {
                     UserId = userId,
                     GameId = gameId,
