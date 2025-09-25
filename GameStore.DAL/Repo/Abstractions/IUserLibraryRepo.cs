@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.Entities;
+using GameStore.DAL.Entities;
 
 
 namespace GameStore.DAL.Repo.Abstractions
@@ -10,7 +10,7 @@ namespace GameStore.DAL.Repo.Abstractions
 
         IEnumerable<Game> GetUserGames(int userId);
         IEnumerable<int> GetOwnedGameIds(int userId);
-
+        bool ExistsByGameId(int gameId);
         void AddOwnership(int userId, int gameId);
     }
 }

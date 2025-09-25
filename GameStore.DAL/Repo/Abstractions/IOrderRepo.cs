@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.Entities;
+using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 
 
@@ -18,5 +18,6 @@ namespace GameStore.DAL.Repo.Abstractions
         
 
         int CountByStatus(OrderStatus status);//For Admin Dashboard
+
     }
 }

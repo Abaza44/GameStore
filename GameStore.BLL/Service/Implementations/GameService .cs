@@ -1,8 +1,10 @@
 using GameStore.BLL.ModelVM.Game;
 using GameStore.BLL.Service.Abstractions;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Enums;
 using GameStore.DAL.Repo.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.BLL.Service.Implementations
 {
@@ -11,12 +13,23 @@ namespace GameStore.BLL.Service.Implementations
         private readonly IGameRepo _gameRepo;
         private readonly ICategoryRepo _categoryRepo;
         private readonly IUserRepo _userRepo;
+        private readonly IOrderItemRepo _orderItemRepo;
+        private readonly IUserLibraryRepo _userLibraryRepo;
+        //private readonly GameStoreContext _context;
 
-        public GameService(IGameRepo gameRepo, ICategoryRepo categoryRepo, IUserRepo userRepo)
+        //public GameService(GameStoreContext context)
+        //{
+        //    _context = context;
+        //}
+
+        public GameService(IGameRepo gameRepo, ICategoryRepo categoryRepo, IUserRepo userRepo,
+                   IOrderItemRepo orderItemRepo, IUserLibraryRepo userLibraryRepo)
         {
             _gameRepo = gameRepo;
             _categoryRepo = categoryRepo;
             _userRepo = userRepo;
+            _orderItemRepo = orderItemRepo;
+            _userLibraryRepo = userLibraryRepo;
         }
 
         public GameViewModel AddGame(GameCreateModel model)
@@ -113,6 +126,19 @@ namespace GameStore.BLL.Service.Implementations
                 Status = g.Status,  
                 CreatedAt = g.CreatedAt
             };
+        }
+
+        public void DeleteGame(int gameId, int currentUserId, bool isCurrentUserAdmin)
+        {
+            var game = _gameRepo.GetById(gameId) ?? throw new KeyNotFoundException("Game not found.");
+
+            if (!isCurrentUserAdmin && game.PublisherId != currentUserId)
+                throw new UnauthorizedAccessException("You do not have permission to delete this game.");
+
+            if (_orderItemRepo.ExistsByGameId(gameId) || _userLibraryRepo.ExistsByGameId(gameId))
+                throw new InvalidOperationException("Cannot delete a game that has purchases or exists in users' libraries.");
+
+            _gameRepo.Delete(game);
         }
     }
 }

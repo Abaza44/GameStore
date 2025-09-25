@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.DB;
+using GameStore.DAL.DB;
 using GameStore.DAL.Entities;
 using GameStore.DAL.Repo.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,7 @@ namespace GameStore.DAL.Repo.Implementations
                            .ToList();
         }
         public IEnumerable<int> GetOwnedGameIds(int userId)
-                => _context.UserGames
+        {
             return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)
                 .Select(ug => ug.GameId).ToList();
         }
@@ -38,11 +38,12 @@ namespace GameStore.DAL.Repo.Implementations
         {
             return this._context.UserGames.AsNoTracking().Any(ug => ug.UserId == userId && ug.GameId == gameId);
         }
+        public bool ExistsByGameId(int gameId) => _context.UserGames.Any(x => x.GameId == gameId);
         public void AddOwnership(int userId, int gameId)
         {
             if (!OwnsGame(userId, gameId))
             {
-                _context.UserGames.Add(new UserGame
+                var userGame = new UserGame
                 {
                     UserId = userId,
                     GameId = gameId,
@@ -51,5 +52,6 @@ namespace GameStore.DAL.Repo.Implementations
                 Create(userGame);
             }
         }
+        
     }
 }

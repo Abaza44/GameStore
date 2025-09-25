@@ -13,7 +13,7 @@ namespace GameStore.BLL.Service.Abstractions
         IEnumerable<GameViewModel> GetApproved();
         IEnumerable<GameViewModel> GetPending();
         IEnumerable<GameViewModel> GetRejected();
-
+        void DeleteGame(int gameId, int currentUserId, bool isCurrentUserAdmin);
         void Update(GameUpdateModel model, int publisherId);
         void Approve(int gameId, int adminId);
         void Reject(int gameId, int adminId, string reason);

@@ -1,4 +1,4 @@
-﻿using GameStore.DAL.Entities;
+using GameStore.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +20,6 @@ namespace GameStore.DAL.Repo.Abstractions
         IEnumerable<OrderItem> GetOrderItemsWithGame(int orderId);
         IEnumerable<OrderItem> GetOrderItems(int orderId);
         decimal GetSubtotal(int orderId);
+        bool ExistsByGameId(int gameId);
     }
 }
