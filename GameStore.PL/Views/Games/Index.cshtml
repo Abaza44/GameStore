@@ -1,112 +1,304 @@
 ﻿@using GameStore.DAL.Entities
 @using GameStore.BLL.ModelVM.Game
-@model (IEnumerable<Category>,List<(string,IEnumerable<GameViewModel>)>);
+@model (IEnumerable<Category>, List<(string, IEnumerable<GameViewModel>)>)
 
 @{
     ViewData["Title"] = "Games Store";
-    var hasAny = Model.Item1?.Any() == true;
+    var hasAny = (Model.Item1?.Any() ?? false) || (Model.Item2?.Any(g => g.Item2?.Any() ?? false) ?? false);
 }
 
-<div class="container mt-4">
-    
+<style>
+    /* Smooth scroll + تعويض النافبار */
+    html {
+        scroll-behavior: smooth;
+    }
 
+    .anchor-offset {
+        scroll-margin-top: 90px;
+    }
+
+    /* ====== Layout & Utilities ====== */
+    .page-hero {
+        background: linear-gradient(135deg, #0d6efd11 0%, #6610f211 100%);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .sticky-filter {
+        position: sticky;
+        top: 84px;
+    }
+
+    /* ====== Card Styling ====== */
+    .game-card {
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: transform .25s ease, box-shadow .25s ease;
+        box-shadow: 0 4px 14px rgba(0,0,0,.06);
+        background: #fff;
+    }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,.12);
+        }
+
+    .game-img-wrap {
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        background: #f3f6f9;
+    }
+
+        .game-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+            transition: transform .35s ease, filter .35s ease;
+        }
+
+    .game-card:hover .game-img-wrap img {
+        transform: scale(1.08);
+        filter: saturate(1.05) contrast(1.02);
+    }
+
+    .game-title {
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 0 .25rem 0;
+    }
+
+    .game-desc {
+        color: #5c6770;
+        max-height: 3.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .price-chip {
+        font-weight: 600;
+        border-radius: 999px;
+        padding: .35rem .65rem;
+        background: #e7f1ff;
+        color: #0d6efd;
+    }
+
+    /* ====== Buttons micro-interaction ====== */
+    .btn-press {
+        transform: translateZ(0);
+        transition: transform .08s ease;
+    }
+
+        .btn-press:active {
+            transform: translateY(1px);
+        }
+
+    /* ====== Reveal on scroll ====== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity .6s ease, transform .6s ease;
+    }
+
+        .reveal.show {
+            opacity: 1;
+            transform: none;
+        }
+</style>
+
+<div class="container mt-4">
     @if (!hasAny)
     {
-        <div class="alert alert-warning mt-3">There are no games available at the moment.</div>
+        <div id="home" class="page-hero anchor-offset text-center">
+            <h1 class="mb-2">🎮 Welcome To Our Game Store</h1>
+            <p class="text-muted mb-0">There are no games available at the moment.</p>
+        </div>
     }
     else
     {
-
-
-
-        <div class="card " height: 50vh;>
-            <div class="card-header">
-                Filter
+        <!-- Hero (anchor: home) -->
+        <div id="home" class="page-hero anchor-offset d-flex flex-wrap gap-2 justify-content-between align-items-center">
+            <div>
+                <h1 class="mb-1">🎮 Welcome To Our Game Store</h1>
+                <div class="text-muted">Discover, filter, and add your favorite titles to cart.</div>
             </div>
-            <div class="card-body">
-                <form asp-action="GetAllGame" asp-controller="Games" method="get">
-                    <div class="mb-3">
-                        <select class="form-select" name="CategoryId">
-                            <option selected value="0">Category</option>
-                            @foreach (var item in Model.Item1 ?? Enumerable.Empty<Category>())
-                            {
-                                <option value="@item.Id">@item.Name</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="priceFrom" class="form-label">Price from</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="priceFrom" name="priceFrom"
-                                       value="0" placeholder="From">
-                                <span class="input-group-text">$</span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="priceTo" class="form-label">Price to</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="priceTo" name="priceTo"
-                                       value="100000" placeholder="To">
-                                <span class="input-group-text">$</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Apply</button>
-                </form>
-            </div>
+            <!-- Mobile filter button -->
+            <button class="btn btn-outline-primary btn-sm d-lg-none filter-toggle" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#filterCanvas" aria-controls="filterCanvas">
+                <i class="fa-solid fa-filter"></i> Filter
+            </button>
         </div>
-           
-            
-                <h2>🎮 Available Games</h2>
-                <div class="row">
-                    <div class="col-md-9">
-                        @foreach (var groub in Model.Item2)
-                        {
-                            @if (groub.Item2.Count() == 0)
-                            {
-                                continue;
-                            }
-                            <h2>@groub.Item1</h2>
-                            <div class="row g-3">
-                                @foreach (var game in groub.Item2)
-                                {
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="card h-100 shadow-sm">
-                                            <img src="@game.PosterUrl"
-                                                 class="card-img-top"
-                                                 alt="@game.Title"
-                                                 style="max-height: 200px; object-fit: cover;" />
 
-                                            <div class="card-body">
-                                                <h5 class="card-title">@game.Title</h5>
-                                                <p class="card-text">@game.Description</p>
-                                                <span class="badge bg-primary">Price: $@game.Price</span>
+        <div class="row g-4">
+            <!-- Sidebar Filter (desktop sticky / mobile offcanvas) -->
+            <div class="col-lg-3">
+                <div class="d-none d-lg-block sticky-filter">
+                    <div class="card shadow-sm">
+                        <div class="card-header fw-bold"><i class="fa-solid fa-filter me-1"></i> Filter</div>
+                        <div class="card-body">
+                            <!-- نفس الوظائف: GET => Games/GetAllGame -->
+                            <form asp-action="GetAllGame" asp-controller="Games" method="get" class="vstack gap-3">
+                                <div>
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select" name="CategoryId">
+                                        <option selected value="0">All Categories</option>
+                                        @foreach (var item in Model.Item1 ?? Enumerable.Empty<Category>())
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
 
-                                                @if (User.IsInRole("User"))
-                                                {
-                                                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-2">
-                                                        @Html.AntiForgeryToken()
-                                                        <input type="hidden" name="gameId" value="@game.Id" />
-                                                        <button type="submit" class="btn btn-sm btn-success">
-                                                            Add to Cart
-                                                        </button>
-                                                    </form>
-                                                }
-                                            </div>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <label for="priceFrom" class="form-label">Price from</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" id="priceFrom" name="priceFrom" value="0" placeholder="From">
                                         </div>
                                     </div>
-                                }
+                                    <div class="col-6">
+                                        <label for="priceTo" class="form-label">Price to</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" id="priceTo" name="priceTo" value="100000" placeholder="To">
+                                        </div>
+                                    </div>
+                                </div>
 
-                            </div>
-                            
-                        }
+                                <button type="submit" class="btn btn-primary w-100 btn-press">Apply</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            
-        
+
+                <!-- Offcanvas filter for mobile -->
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="filterCanvas" aria-labelledby="filterCanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="filterCanvasLabel">Filter</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form asp-action="GetAllGame" asp-controller="Games" method="get" class="vstack gap-3">
+                            <div>
+                                <label class="form-label">Category</label>
+                                <select class="form-select" name="CategoryId">
+                                    <option selected value="0">All Categories</option>
+                                    @foreach (var item in Model.Item1 ?? Enumerable.Empty<Category>())
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <label for="m_priceFrom" class="form-label">Price from</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" id="m_priceFrom" name="priceFrom" value="0" placeholder="From">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="m_priceTo" class="form-label">Price to</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" id="m_priceTo" name="priceTo" value="100000" placeholder="To">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 btn-press" data-bs-dismiss="offcanvas">Apply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="col-lg-9">
+                @foreach (var group in Model.Item2 ?? new List<(string, IEnumerable<GameViewModel>)>())
+                {
+                    if (group.Item2 == null || !group.Item2.Any()) { continue; }
+
+                    var title = (group.Item1 ?? string.Empty).ToLowerInvariant();
+                    var isTop = title.Contains("top") || title.Contains("الأعلى") || title.Contains("اعلى") || title.Contains("top games");
+                    var isRecent = title.Contains("recent") || title.Contains("الأحدث") || title.Contains("جديد") || title.Contains("latest") || title.Contains("new");
+                    var anchorId = isTop ? "top" : (isRecent ? "recent" : null);
+
+                    <div class="d-flex justify-content-between align-items-center mb-2 reveal @(anchorId != null ? "anchor-offset" : "")"
+                         @(anchorId != null ? new { id = anchorId } : null)>
+                        <h2 class="h4 mb-0">@group.Item1</h2>
+                        <span class="text-muted small">@group.Item2.Count() game(s)</span>
+                    </div>
+
+                    <div class="row g-3 g-md-4 mb-4">
+                        @foreach (var game in group.Item2)
+                        {
+                            <div class="col-12 col-sm-6 col-md-4 reveal">
+                                <div class="card game-card h-100">
+                                    <div class="game-img-wrap">
+                                        <img src="@game.PosterUrl" alt="@game.Title" loading="lazy" />
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="game-title">@game.Title</h5>
+                                        <p class="game-desc mb-3">@game.Description</p>
+
+                                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                                            <span class="price-chip">$@game.Price</span>
+
+                                            @if (User.IsInRole("User"))
+                                            {
+                                                <form asp-controller="Cart" asp-action="Add" method="post" class="m-0">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="gameId" value="@game.Id" />
+                                                    <button type="submit" class="btn btn-success btn-sm btn-press">
+                                                        <i class="fa-solid fa-cart-plus"></i> <span class="d-none d-sm-inline">Add</span>
+                                                    </button>
+                                                </form>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
     }
 </div>
+
+@section Scripts {
+    <script>
+        // Reveal on scroll
+        (function () {
+            const els = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window) || els.length === 0) {
+                els.forEach(el => el.classList.add('show'));
+                return;
+            }
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('show');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+            els.forEach(el => io.observe(el));
+        })();
+
+        // Smooth internal anchors (extra safe if links without asp-fragment appear)
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                const id = a.getAttribute('href');
+                if (id && id.length > 1) {
+                    e.preventDefault();
+                    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+}
