@@ -1,0 +1,33 @@
+﻿@model GameStore.BLL.ModelVM.Game.GameViewModel
+
+<div class="cart-btn-wrapper" data-game-id="@Model.Id">
+    <form hx-post="/Cart/Remove"
+          hx-target="closest .cart-btn-wrapper"
+          hx-swap="outerHTML"
+          method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="gameId" value="@Model.Id" />
+        <button type="submit" class="btn btn-sm btn-danger">
+            Remove from Cart
+        </button>
+    </form>
+</div>
+
+<script>
+    (function(){
+        var id = '@Model.Id';
+        var updated = document.querySelector(".cart-btn-wrapper[data-game-id='"+id+"']");
+        if (!updated) return;
+        if (updated.getAttribute('data-cloned') === '1') return;
+
+        var temp = updated.cloneNode(true);
+        temp.setAttribute('data-cloned', '1');
+        var html = temp.outerHTML;
+
+        document.querySelectorAll(".cart-btn-wrapper[data-game-id='"+id+"']").forEach(function(el){
+            if (el !== updated) el.outerHTML = html;
+        });
+
+        updated.setAttribute('data-cloned','1');
+    })();
+</script>

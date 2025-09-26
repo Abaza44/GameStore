@@ -1,6 +1,7 @@
 ﻿@using GameStore.DAL.Entities
 @using GameStore.BLL.ModelVM.Game
-@model (IEnumerable<Category>, List<(string, IEnumerable<GameViewModel>)>)
+@using GameStore.BLL.ModelVM.cart
+@model (IEnumerable<Category>,List<(string,IEnumerable<GameViewModel>)>);
 
 @{
     ViewData["Title"] = "Games Store";
@@ -139,7 +140,7 @@
                         <div class="card-header fw-bold"><i class="fa-solid fa-filter me-1"></i> Filter</div>
                         <div class="card-body">
                             <!-- نفس الوظائف: GET => Games/GetAllGame -->
-                            <form asp-action="GetAllGame" asp-controller="Games" method="get" class="vstack gap-3">
+                            <form asp-action="Index" asp-controller="Games" class="vstack gap-3">
                                 <div>
                                     <label class="form-label">Category</label>
                                     <select class="form-select" name="CategoryId">
@@ -255,13 +256,21 @@
 
                                             @if (User.IsInRole("User"))
                                             {
-                                                <form asp-controller="Cart" asp-action="Add" method="post" class="m-0">
+                                                 <form asp-controller="Cart" asp-action="Add" method="post" class="m-0">
                                                     @Html.AntiForgeryToken()
                                                     <input type="hidden" name="gameId" value="@game.Id" />
                                                     <button type="submit" class="btn btn-success btn-sm btn-press">
                                                         <i class="fa-solid fa-cart-plus"></i> <span class="d-none d-sm-inline">Add</span>
                                                     </button>
-                                                </form>
+                                                </form> 
+                                                @* @if (Model.Item3.Items.Any(a => a.GameId == game.Id))
+                                                {
+                                                    @Html.Partial("_RemoveFromCartButtonPartial", game)
+                                                }
+                                                else
+                                                {
+                                                    @Html.Partial("_AddToCartButtonPartial", game)
+                                                } *@
                                             }
                                         </div>
                                     </div>
