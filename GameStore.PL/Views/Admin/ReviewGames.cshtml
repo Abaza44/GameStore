@@ -45,9 +45,9 @@
                             <form asp-action="Reject" method="post" class="d-inline ms-1">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="gameId" value="@game.Id" />
+                                <button class="btn btn-warning btn-sm ms-1">Reject</button>
                                 <input type="text" name="reason" placeholder="Rejection reason"
                                        class="form-control form-control-sm d-inline w-auto" style="min-width:150px;" />
-                                <button class="btn btn-warning btn-sm ms-1">Reject</button>
                             </form>
 
                             
