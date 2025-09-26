@@ -19,7 +19,7 @@ namespace GameStore.PL.Controllers
             _categoryService = categoryService;
         }
 
-        // عرض الألعاب الخاصة بالـ Publisher الحالي
+        
         public IActionResult MyGames()
         {
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
@@ -44,7 +44,7 @@ namespace GameStore.PL.Controllers
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
             _gameService.AddGame(game, userId);
             game.PublisherId = userId;
-            _gameService.AddGame(game);
+            
             TempData["SuccessMessage"] = "🎮 Game uploaded. Waiting admin approval!";
             return RedirectToAction("MyGames");
         }

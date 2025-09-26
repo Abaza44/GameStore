@@ -1,12 +1,14 @@
-﻿@model IEnumerable<GameStore.BLL.ModelVM.Game.GameViewModel>
+﻿@using GameStore.DAL.Entities
+@using GameStore.BLL.ModelVM.Game
+@model (IEnumerable<Category>,List<(string,IEnumerable<GameViewModel>)>);
 
 @{
     ViewData["Title"] = "Games Store";
-    var hasAny = Model?.Any() == true;
+    var hasAny = Model.Item1?.Any() == true;
 }
 
 <div class="container mt-4">
-    <h2>🎮 Available Games</h2>
+    
 
     @if (!hasAny)
     {
@@ -14,35 +16,97 @@
     }
     else
     {
-        <div class="row">
-            @foreach (var game in Model ?? Enumerable.Empty<GameStore.BLL.ModelVM.Game.GameViewModel>())
-            {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="@game.PosterUrl"
-                             class="card-img-top"
-                             alt="@game.Title"
-                             style="max-height: 200px; object-fit: cover;" />
 
-                        <div class="card-body">
-                            <h5 class="card-title">@game.Title</h5>
-                            <p class="card-text">@game.Description</p>
-                            <span class="badge bg-primary">Price: $@game.Price</span>
 
-                            @if (User.IsInRole("User"))
+
+        <div class="card " height: 50vh;>
+            <div class="card-header">
+                Filter
+            </div>
+            <div class="card-body">
+                <form asp-action="GetAllGame" asp-controller="Games" method="get">
+                    <div class="mb-3">
+                        <select class="form-select" name="CategoryId">
+                            <option selected value="0">Category</option>
+                            @foreach (var item in Model.Item1 ?? Enumerable.Empty<Category>())
                             {
-                                <form asp-controller="Cart" asp-action="Add" method="post" class="mt-2">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="gameId" value="@game.Id" />
-                                    <button type="submit" class="btn btn-sm btn-success">
-                                        Add to Cart
-                                    </button>
-                                </form>
+                                <option value="@item.Id">@item.Name</option>
                             }
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="priceFrom" class="form-label">Price from</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="priceFrom" name="priceFrom"
+                                       value="0" placeholder="From">
+                                <span class="input-group-text">$</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="priceTo" class="form-label">Price to</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="priceTo" name="priceTo"
+                                       value="100000" placeholder="To">
+                                <span class="input-group-text">$</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+
+                    <button type="submit" class="btn btn-primary w-100">Apply</button>
+                </form>
+            </div>
         </div>
+           
+            
+                <h2>🎮 Available Games</h2>
+                <div class="row">
+                    <div class="col-md-9">
+                        @foreach (var groub in Model.Item2)
+                        {
+                            @if (groub.Item2.Count() == 0)
+                            {
+                                continue;
+                            }
+                            <h2>@groub.Item1</h2>
+                            <div class="row g-3">
+                                @foreach (var game in groub.Item2)
+                                {
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="card h-100 shadow-sm">
+                                            <img src="@game.PosterUrl"
+                                                 class="card-img-top"
+                                                 alt="@game.Title"
+                                                 style="max-height: 200px; object-fit: cover;" />
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">@game.Title</h5>
+                                                <p class="card-text">@game.Description</p>
+                                                <span class="badge bg-primary">Price: $@game.Price</span>
+
+                                                @if (User.IsInRole("User"))
+                                                {
+                                                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-2">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="gameId" value="@game.Id" />
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            Add to Cart
+                                                        </button>
+                                                    </form>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            
+                        }
+                    </div>
+                </div>
+            
+        
     }
 </div>

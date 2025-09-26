@@ -52,6 +52,10 @@
                         {
                             @if (User.IsInRole("Admin"))
                             {
+                                
+                                <li class="nav-item">
+                                    <a asp-controller="Admin" asp-action="ManageGames" class="nav-link">Manage Games</a>
+                                </li>
                                 <li class="nav-item"><a asp-controller="Admin" asp-action="Dashboard" class="nav-link">Admin Dashboard</a></li>
                                 <li class="nav-item"><a asp-controller="Admin" asp-action="ReviewGames" class="nav-link">Review Games</a></li>
                             }
