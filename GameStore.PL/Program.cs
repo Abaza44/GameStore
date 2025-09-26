@@ -1,4 +1,4 @@
-﻿using GameStore.BLL.Service.Abstractions;
+using GameStore.BLL.Service.Abstractions;
 using GameStore.BLL.Service.Implementations;
 using GameStore.BLL.Services;
 using GameStore.DAL.DB;
@@ -22,12 +22,12 @@ builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<UiExceptionFilter>();
 });
-// Cookie Auth (سجّلها مرة واحدة فقط)
+// Cookie Auth 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
 {
     options.LoginPath = "/Account/Login";
-    // خليه يروّح على Action حقيقية مش View path
+    //  View path
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddScoped<IUserLibraryRepo, UserLibraryRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
-// موجودة مسبقًا لكن للتذكير:
+
 builder.Services.AddScoped<IGameRepo, GameRepo>();
 builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
@@ -46,7 +46,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-// وتأكد من تسجيل الريبو:
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<IGameRepo, GameRepo>();
@@ -69,11 +68,11 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    // نستخدم نفس صفحة الخطأ في الديف لعرض التفاصيل بشكل منسق
+    
     app.UseExceptionHandler("/Home/Error");
 }
 
-// صفحة للأكواد (404/403/500...)
+
 app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
 
 app.UseHttpsRedirection();
