@@ -12,7 +12,7 @@ namespace GameStore.DAL.DB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=HAGGAG;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("Server=.;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
         }
         public GameStoreContext(DbContextOptions<GameStoreContext> options) : base(options)
         {

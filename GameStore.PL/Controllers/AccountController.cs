@@ -36,14 +36,24 @@ namespace GameStore.PL.Controllers
             UserRole role
         )
         {
-            var user = await _authService.RegisterAsync(
+            try
+            {
+
+                var user = await _authService.RegisterAsync(
                 fullName, email, password, dateOfBirth,
                 null,                 // profile picture disabled for now
-                role        
-            );
+                role
+                );
+                await SignInUser(user);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View("Login");
+            }
 
-            await SignInUser(user);
-            return RedirectToAction("Index", "Home");
+           
+            return RedirectToAction("Index", "Games");
         }
 
         // 👇 عرض صفحة تسجيل الدخول
@@ -63,7 +73,7 @@ namespace GameStore.PL.Controllers
             }
 
             await SignInUser(user);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Games");
         }
 
         // 👇 تسجيل الخروج
@@ -72,7 +82,7 @@ namespace GameStore.PL.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Games");
         }
 
         private async Task SignInUser(User user)
