@@ -1,5 +1,6 @@
 ﻿using GameStore.BLL.ModelVM.Game;
 using GameStore.BLL.Service.Abstractions;
+using GameStore.BLL.Services;
 using GameStore.DAL.DB;
 using GameStore.DAL.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -16,16 +17,19 @@ namespace GameStore.PL.Controllers
         private readonly IGameService _gameService;
         private readonly ILogger<GamesController> _logger;
         private readonly ICategoryService _categoryService;
+        
 
         public GamesController(IGameService gameService, ILogger<GamesController> logger, ICategoryService categoryService)
         {
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _logger = logger;
             _categoryService = categoryService;
+            
         }
 
         [HttpGet]
         [AllowAnonymous] // أي حد يقدر يشوف الألعاب
+
         public async Task<IActionResult> Index()
         {
             var category = _categoryService.GetAll();
@@ -37,11 +41,13 @@ namespace GameStore.PL.Controllers
             GroupedGame.Add(("Recent Games", recentGame));
             foreach (var item in category)
             {
-                var groupedGame =  _gameService.GetApproved().Where(a => a.CategoryName.Equals(item.Name));
+                var groupedGame = _gameService.GetApproved().Where(a => a.CategoryName.Equals(item.Name));
                 var group = (item.Name, groupedGame);
                 GroupedGame.Add(group);
             }
-            return View((category,GroupedGame));
+            
+            return View((category, GroupedGame));
+            //return View((category,GroupedGame));
         }
 
         [HttpPost]
@@ -89,21 +95,27 @@ namespace GameStore.PL.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult GetAllGame(int categoryId = 0, decimal priceFrom = 0, decimal priceTo = 10000)
+        [HttpPost]
+        public async Task<IActionResult> Index(int categoryId = 0, decimal priceFrom = 0, decimal priceTo = 10000)
         {
             try
             {
-                var games = _gameService.GetAll();
+                var games = await _gameService.GetApprovedAsync();
+                var categoryName = "Games";
                 if (categoryId != 0)
                 {
-                    var categoryName = _categoryService.GetById(categoryId).Name;
+                    categoryName = _categoryService.GetById(categoryId).Name;
                     games = games.Where(a => a.CategoryName.Equals(categoryName));
 
                 }
+                games = games.Where(a => (a.Price >= priceFrom) && (a.Price <= priceTo));
+                var GroupGames = new List<(string, IEnumerable<GameViewModel>)>();
+                var category = _categoryService.GetAll();
                 
-                games = games.Where(a => (a.Price >= priceFrom) && (a.Price <= priceTo)).ToList();
 
-                return View(games);
+                GroupGames.Add((categoryName, games));
+
+                return View((category, GroupGames));
             }
             catch (KeyNotFoundException)
             {
