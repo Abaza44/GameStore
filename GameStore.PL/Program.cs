@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Db connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-?? "Server=HAGGAG;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
+?? "Server=.;Database=GameStore;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
 
 builder.Services.AddDbContext<GameStoreContext>(options =>
 options.UseSqlServer(connectionString, b => b.MigrationsAssembly("GameStore.DAL")));
