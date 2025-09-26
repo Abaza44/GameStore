@@ -28,35 +28,45 @@
             margin-top: auto;
         }
 
-        /* وسط النافبار (Home/Top/Recent) */
-        .mid-nav .nav-link {
+
+        .navbar .nav-link,
+        .navbar .btn.nav-link,
+        .navbar .dropdown-item {
             position: relative;
             padding: .4rem .8rem;
             border-radius: 999px;
             color: rgba(255,255,255,.85);
-            transition: background-color .2s ease, color .2s ease, transform .08s ease;
+            transition: background-color .2s ease, color .2s ease, transform .08s ease, box-shadow .2s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-            .mid-nav .nav-link:hover {
+            /* Hover */
+            .navbar .nav-link:hover,
+            .navbar .btn.nav-link:hover {
                 background-color: rgba(255,255,255,.12);
                 color: #fff;
             }
 
-            .mid-nav .nav-link:active {
-                transform: translateY(1px);
+            /* Focus (كيبورد) */
+            .navbar .nav-link:focus-visible,
+            .navbar .btn.nav-link:focus-visible {
+                outline: none;
+                box-shadow: 0 0 0 .2rem rgba(13,110,253,.35);
             }
 
-            .mid-nav .nav-link.active {
-                background: #0d6efd;
+            /* Active / Pressed */
+            .navbar .nav-link:active,
+            .navbar .btn.nav-link:active,
+            .navbar .nav-link.active,
+            .navbar .btn.nav-link.active {
+                transform: translateY(1px);
+                background-color: rgba(13,110,253,.25);
                 color: #fff;
             }
-        
 
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            letter-spacing: .2px;
+        /* خليه بس للتوسيط والمسافة بين الروابط الوسطى */
+        .mid-nav {
+            gap: .5rem;
         }
     </style>
 </head>
@@ -96,16 +106,16 @@
                             @if (User.IsInRole("User"))
                             {
                                 <li class="nav-item">
+                                    <a asp-controller="User" asp-action="GetUserLibrary" class="nav-link">
+                                        <i class="fa-solid me-1"></i> My Games
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a asp-controller="Cart" asp-action="Index" class="nav-link">
                                         <i class="fa-solid fa-cart-shopping me-1"></i> Cart
                                     </a>
                                 </li>
-                                @* Add My Games *@
-                                <li class="nav-item">
-                                    <a asp-controller="Cart" asp-action="Index" class="nav-link">
-                                        <i class="fa-solid fa-cart-shopping me-1"></i> My Games
-                                    </a>
-                                </li>
+                                
                             }
                             @if (User.IsInRole("Publisher"))
                             {
@@ -187,6 +197,24 @@
           window.addEventListener('resize', adjustBodyPadding);
         })();
     </script>
+    <script>
+        (function(){
+          const selector = '.navbar .nav-link, .navbar .btn.nav-link';
+          function addPressed(e){
+            const el = e.target.closest(selector);
+            if(!el) return;
+            el.classList.add('active'); // يستعمل نفس ستايل الـ active
+          }
+          function removePressed(){
+            document.querySelectorAll(selector).forEach(el => el.classList.remove('active'));
+          }
+          document.addEventListener('touchstart', addPressed, {passive:true});
+          document.addEventListener('touchend', removePressed, {passive:true});
+          document.addEventListener('touchcancel', removePressed, {passive:true});
+        })();
+    </script>
+
+
 
     @RenderSection("Scripts", required: false)
     @await Html.PartialAsync("_SuccessToastPartial")

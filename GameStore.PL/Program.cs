@@ -52,6 +52,7 @@ builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<IGameRepo, GameRepo>();
 builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 builder.Services.AddScoped<IPaymentRepo, PaymentRepo>();
+builder.Services.AddScoped<IUserLibraryService, UserLibraryService>();
 var app = builder.Build();
 
 // Auto-migrate + seed

@@ -24,10 +24,20 @@ namespace GameStore.DAL.Repo.Implementations
         public IEnumerable<Game> GetUserGames(int userId)
         {
              return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)
-                           .Include(ug => ug.Game) // Eager load the Game entity
+                           .Include(ug => ug.Game)
                            .Select(ug => ug.Game) // Select only the Game entities
                            .ToList();
         }
+
+        public IEnumerable<Game> GetUserGameswithCategory(int userId)
+        {
+            return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)
+                          .Include(ug => ug.Game)
+                          .ThenInclude(g => g.Category)
+                          .Select(ug => ug.Game) // Select only the Game entities
+                          .ToList();
+        }
+
         public IEnumerable<int> GetOwnedGameIds(int userId)
         {
             return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)

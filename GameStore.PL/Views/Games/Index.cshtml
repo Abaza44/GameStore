@@ -229,10 +229,11 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-2 reveal @(anchorId != null ? "anchor-offset" : "")"
                          @(anchorId != null ? new { id = anchorId } : null)>
+                         
                         <h2 class="h4 mb-0">@group.Item1</h2>
                         <span class="text-muted small">@group.Item2.Count() Game(s)</span>
                     </div>
-
+                    <br>
                     <div class="row g-3 g-md-4 mb-4">
                         @foreach (var game in group.Item2)
                         {
