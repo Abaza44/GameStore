@@ -1,0 +1,48 @@
+﻿@model IEnumerable<GameStore.BLL.ModelVM.Game.GameViewModel>
+
+@{
+    ViewData["Title"] = "Games Store";
+    var hasAny = Model?.Any() == true;
+}
+
+<div class="container mt-4">
+    <h2>🎮 Available Games</h2>
+
+    @if (!hasAny)
+    {
+        <div class="alert alert-warning mt-3">There are no games available at the moment.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var game in Model ?? Enumerable.Empty<GameStore.BLL.ModelVM.Game.GameViewModel>())
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@game.PosterUrl"
+                             class="card-img-top"
+                             alt="@game.Title"
+                             style="max-height: 200px; object-fit: cover;" />
+
+                        <div class="card-body">
+                            <h5 class="card-title">@game.Title</h5>
+                            <p class="card-text">@game.Description</p>
+                            <span class="badge bg-primary">Price: $@game.Price</span>
+
+                            @if (User.IsInRole("User"))
+                            {
+                                <form asp-controller="Cart" asp-action="Add" method="post" class="mt-2">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="gameId" value="@game.Id" />
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
