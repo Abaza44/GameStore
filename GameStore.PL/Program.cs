@@ -51,6 +51,7 @@ builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<IGameRepo, GameRepo>();
 builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 builder.Services.AddScoped<IPaymentRepo, PaymentRepo>();
+builder.Services.AddScoped<IUserLibraryService, UserLibraryService>();
 var app = builder.Build();
 
 // Auto-migrate + seed
@@ -85,6 +86,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 name: "default",
-pattern: "{controller=Home}/{action=Index}/{id?}");
+pattern: "{controller=Games}/{action=Index}/{id?}");
 
 app.Run();

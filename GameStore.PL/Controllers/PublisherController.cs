@@ -1,8 +1,5 @@
 ﻿using GameStore.BLL.ModelVM.Game;
 using GameStore.BLL.Service.Abstractions;
-using GameStore.DAL.DB;
-using GameStore.DAL.Entities;
-using GameStore.DAL.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

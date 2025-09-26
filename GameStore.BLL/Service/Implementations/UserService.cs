@@ -97,5 +97,7 @@ namespace GameStore.BLL.Service.Implementations
         {
             return _context.Users.AsNoTracking().ToList();
         }
+
+
     }
 }

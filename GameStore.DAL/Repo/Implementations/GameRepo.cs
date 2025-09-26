@@ -55,7 +55,7 @@ namespace GameStore.DAL.Repo.Implementations
         public IEnumerable<Game> GetTopGames(int n)
         {
             n = Math.Min(n, GetGamesCount());
-            return _context.Games.AsNoTracking()
+            return _context.Games.AsNoTracking().Where(a=>a.Status==Enums.GameStatus.Approved)
                    .OrderByDescending(g => g.Count)
                    .Take(n)
                    .ToList();
@@ -63,7 +63,7 @@ namespace GameStore.DAL.Repo.Implementations
         public IEnumerable<Game> GetRecentGames(int n)
         {
             n = Math.Min(n, GetGamesCount());
-            return _context.Games.AsNoTracking()
+            return _context.Games.AsNoTracking().Where(a => a.Status == Enums.GameStatus.Approved)
                    .OrderByDescending(g => g.CreatedAt)
                    .Take(n)
                    .ToList();
@@ -118,7 +118,7 @@ namespace GameStore.DAL.Repo.Implementations
         public async Task<IEnumerable<Game>> GetTopGamesAsync(int n)
         {
             n = Math.Min(n, await GetGamesCountAsync());
-            return await _context.Games.AsNoTracking()
+            return await _context.Games.AsNoTracking().Where(a => a.Status == Enums.GameStatus.Approved)
                    .OrderByDescending(g => g.Count)
                    .Take(n)
                    .ToListAsync();
@@ -126,7 +126,7 @@ namespace GameStore.DAL.Repo.Implementations
         public async Task<IEnumerable<Game>> GetRecentGamesAsync(int n)
         {
             n = Math.Min(n, await GetGamesCountAsync());
-            return await _context.Games.AsNoTracking()
+            return await _context.Games.AsNoTracking().Where(a => a.Status == Enums.GameStatus.Approved)
                    .OrderByDescending(g => g.CreatedAt)
                    .Take(n)
                    .ToListAsync();

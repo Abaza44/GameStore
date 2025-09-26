@@ -7,12 +7,12 @@
 
     <!-- CSS (CDN) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-J5O..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <style>
         html, body {
-            height: 100%; /* عشان الفليكس يشتغل على طول الشاشة */
+            height: 100%;
         }
 
         body {
@@ -21,19 +21,61 @@
         }
 
         main {
-            flex: 1; /* ياخد المساحة المتبقية */
+            flex: 1;
         }
 
         footer {
-            margin-top: auto; /* يفضل دايمًا تحت */
+            margin-top: auto;
+        }
+
+
+        .navbar .nav-link,
+        .navbar .btn.nav-link,
+        .navbar .dropdown-item {
+            position: relative;
+            padding: .4rem .8rem;
+            border-radius: 999px;
+            color: rgba(255,255,255,.85);
+            transition: background-color .2s ease, color .2s ease, transform .08s ease, box-shadow .2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+            /* Hover */
+            .navbar .nav-link:hover,
+            .navbar .btn.nav-link:hover {
+                background-color: rgba(255,255,255,.12);
+                color: #fff;
+            }
+
+            /* Focus (كيبورد) */
+            .navbar .nav-link:focus-visible,
+            .navbar .btn.nav-link:focus-visible {
+                outline: none;
+                box-shadow: 0 0 0 .2rem rgba(13,110,253,.35);
+            }
+
+            /* Active / Pressed */
+            .navbar .nav-link:active,
+            .navbar .btn.nav-link:active,
+            .navbar .nav-link.active,
+            .navbar .btn.nav-link.active {
+                transform: translateY(1px);
+                background-color: rgba(13,110,253,.25);
+                color: #fff;
+            }
+
+        /* خليه بس للتوسيط والمسافة بين الروابط الوسطى */
+        .mid-nav {
+            gap: .5rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" id="siteNavbar" style="z-index:1100;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">🎮 GameStore</a>
+                <!-- Brand -->
+                <a class="navbar-brand" asp-controller="Games" asp-action="Index">🎮 GameStore</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -42,38 +84,54 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Games" asp-action="Index">Games</a></li>
-                    </ul>
-
-                    <ul class="navbar-nav ms-auto">
+                    <!-- Centered: Home / Top / Recent -->
+                    <ul class="navbar-nav mx-auto d-flex align-items-center gap-2 mid-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Games" asp-action="Index" asp-fragment="home" data-anchor="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Games" asp-action="Index" asp-fragment="top" data-anchor="top">Top Games</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Games" asp-action="Index" asp-fragment="recent" data-anchor="recent">Recent Games</a>
+                        </li>
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             @if (User.IsInRole("Admin"))
                             {
-                                
-                                <li class="nav-item">
-                                    <a asp-controller="Admin" asp-action="ManageGames" class="nav-link">Manage Games</a>
-                                </li>
+                                <li class="nav-item"><a asp-controller="Admin" asp-action="ManageGames" class="nav-link">Manage Games</a></li>
                                 <li class="nav-item"><a asp-controller="Admin" asp-action="Dashboard" class="nav-link">Admin Dashboard</a></li>
                                 <li class="nav-item"><a asp-controller="Admin" asp-action="ReviewGames" class="nav-link">Review Games</a></li>
                             }
-
                             @if (User.IsInRole("User"))
                             {
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="GetUserLibrary" class="nav-link">
+                                        <i class="fa-solid me-1"></i> My Games
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a asp-controller="Cart" asp-action="Index" class="nav-link">
                                         <i class="fa-solid fa-cart-shopping me-1"></i> Cart
                                     </a>
                                 </li>
+                                
                             }
-
                             @if (User.IsInRole("Publisher"))
                             {
                                 <li class="nav-item"><a asp-controller="Publisher" asp-action="MyGames" class="nav-link">My Games</a></li>
                             }
 
+                        }
+
+
+
+                    </ul>
+
+                    <!-- Right side (unchanged) -->
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
                             <li class="nav-item">
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                                     @Html.AntiForgeryToken()
@@ -86,7 +144,6 @@
                             <li class="nav-item"><a asp-controller="Account" asp-action="Login" class="nav-link">Login</a></li>
                             <li class="nav-item"><a asp-controller="Account" asp-action="Register" class="nav-link">Register</a></li>
                         }
-
                         <li class="nav-item">
                             <button id="darkModeToggle" class="btn btn-sm btn-outline-light ms-2" type="button" title="Toggle theme">
                                 <i class="fa-solid fa-moon"></i>
@@ -96,6 +153,26 @@
                 </div>
             </div>
         </nav>
+
+
+        <script>
+            // تفعيل الرابط النشط حسب الـ hash لما تكون على صفحة الهوم
+            (function () {
+                var path = (location.pathname || "").toLowerCase();
+                var isHome = path.endsWith("/games/index") || path.endsWith("/games") || path === "/" || path === "";
+                var hash = (location.hash || "#home").replace("#", "").toLowerCase();
+                if (!isHome) return;
+                var links = document.querySelectorAll('.mid-nav .nav-link');
+                links.forEach(function (a) {
+                    var target = (a.getAttribute('data-anchor') || "").toLowerCase();
+                    a.classList.toggle('active', target === hash || (hash === "" && target === "home"));
+                    a.addEventListener('click', function () {
+                        links.forEach(function (x) { x.classList.remove('active'); });
+                        a.classList.add('active');
+                    });
+                });
+            })();
+        </script>
     </header>
 
     <main class="container mt-4">
@@ -107,8 +184,41 @@
     </footer>
 
     <!-- Scripts -->
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        (function(){
+          function adjustBodyPadding(){
+            var nav = document.getElementById('siteNavbar');
+            if(!nav) return;
+            document.body.style.paddingTop = (nav.offsetHeight || 70) + 'px';
+          }
+          adjustBodyPadding();
+          window.addEventListener('load', adjustBodyPadding);
+          window.addEventListener('resize', adjustBodyPadding);
+        })();
+    </script>
+    <script>
+        (function(){
+          const selector = '.navbar .nav-link, .navbar .btn.nav-link';
+          function addPressed(e){
+            const el = e.target.closest(selector);
+            if(!el) return;
+            el.classList.add('active'); // يستعمل نفس ستايل الـ active
+          }
+          function removePressed(){
+            document.querySelectorAll(selector).forEach(el => el.classList.remove('active'));
+          }
+          document.addEventListener('touchstart', addPressed, {passive:true});
+          document.addEventListener('touchend', removePressed, {passive:true});
+          document.addEventListener('touchcancel', removePressed, {passive:true});
+        })();
+    </script>
+
+
 
     @RenderSection("Scripts", required: false)
     @await Html.PartialAsync("_SuccessToastPartial")

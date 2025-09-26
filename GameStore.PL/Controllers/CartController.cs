@@ -1,8 +1,9 @@
-﻿using System.Security.Claims;
-//using GameStore.BLL.ModelVM.Cart;
+﻿//using GameStore.BLL.ModelVM.Cart;
 using GameStore.BLL.Service.Abstractions;
+using GameStore.BLL.Service.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GameStore.PL.Controllers
 {
@@ -10,13 +11,17 @@ namespace GameStore.PL.Controllers
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
+        private readonly IGameService _gameService;
 
-        
 
-        public CartController(ICartService cartService)
+        public CartController(ICartService cartService, IGameService gameService)
         {
             _cartService = cartService;
+            _gameService = gameService;
         }
+
+
+
 
         [HttpGet]
         public IActionResult Index()
@@ -38,7 +43,9 @@ namespace GameStore.PL.Controllers
             var userId = int.Parse(uidStr);
             _cartService.AddToCart(userId, gameId);
             TempData["SuccessMessage"] = "One game has been added.";
+            
             return Redirect(Request.Headers["Referer"].ToString() ?? Url.Action("Index", "Cart")!);
+            
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -50,7 +57,9 @@ namespace GameStore.PL.Controllers
             var userId = int.Parse(uidStr);
             _cartService.RemoveFromCart(userId, gameId);
             TempData["SuccessMessage"] = "The game has been deleted.";
+            
             return RedirectToAction("Index");
+            
         }
 
         [HttpPost, ValidateAntiForgeryToken]

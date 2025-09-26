@@ -126,7 +126,9 @@ namespace GameStore.BLL.Service.Implementations
                 PosterUrl = g.PosterUrl,
                 Price = g.Price,
                 Count = g.Count,
-                CategoryName = g.Category?.Name ?? "",
+                //CategoryName = g.Category?.Name ?? "",
+                CategoryName = _categoryRepo.GetById(g.CategoryId).Name,
+                
                 PublisherName = g.Publisher?.FullName ?? "",
                 Status = g.Status,  
                 CreatedAt = g.CreatedAt,
@@ -214,6 +216,7 @@ namespace GameStore.BLL.Service.Implementations
             var game = new Game
             {
                 CategoryId = model.CategoryId,
+                Category=_categoryRepo.GetById(model.CategoryId),
                 PublisherId = publisherId,  
                 Title = model.Title,
                 Description = model.Description,
