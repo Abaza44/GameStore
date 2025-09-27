@@ -1,7 +1,8 @@
 ﻿//using GameStore.BLL.Service.Implementations;
 using GameStore.BLL.Service.Abstractions;
-using Microsoft.AspNetCore.Mvc;
 using GameStore.BLL.Service.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GameStore.PL.Controllers
 {
@@ -25,9 +26,13 @@ namespace GameStore.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUserLibrary(int id)
+        public IActionResult GetUserLibrary()
         {
-            var games = _userLibraryService.GetUserGameswithCategory(id);
+            var uidStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(uidStr)) return RedirectToAction("Login", "Account");
+
+            var userId = int.Parse(uidStr);
+            var games = _userLibraryService.GetUserGameswithCategory(userId).ToList();
             return View("MyGames",games);
         }
 

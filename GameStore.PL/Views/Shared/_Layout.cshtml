@@ -4,6 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"] - GameStore</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="~/icons/favicon.svg" asp-append-version="true">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="~/icons/favicon-32x32.png" asp-append-version="true">
+    <link rel="alternate icon" type="image/png" sizes="16x16" href="~/icons/favicon-16x16.png" asp-append-version="true">
+    <link rel="shortcut icon" type="image/x-icon" href="~/icons/favicon.ico">
+    <!-- (اختياري) آيفون / سافاري -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/icons/apple-touch-icon.png" asp-append-version="true">
+    <link rel="mask-icon" href="~/icons/favicon.svg" color="#6C63FF">
+    <meta name="theme-color" content="#111827">
 
     <!-- CSS (CDN) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
@@ -67,6 +76,10 @@
         /* خليه بس للتوسيط والمسافة بين الروابط الوسطى */
         .mid-nav {
             gap: .5rem;
+        }
+
+        .toast-container {
+            top: 120px !important;
         }
     </style>
 </head>
@@ -194,7 +207,7 @@
           function adjustBodyPadding(){
             var nav = document.getElementById('siteNavbar');
             if(!nav) return;
-            document.body.style.paddingTop = (nav.offsetHeight || 70) + 'px';
+            document.body.style.paddingTop = (nav.offsetHeight || 100) + 'px';
           }
           adjustBodyPadding();
           window.addEventListener('load', adjustBodyPadding);
@@ -215,6 +228,64 @@
           document.addEventListener('touchstart', addPressed, {passive:true});
           document.addEventListener('touchend', removePressed, {passive:true});
           document.addEventListener('touchcancel', removePressed, {passive:true});
+        })();
+    </script>
+
+    <script>
+        (function () {
+          // اشتغل بس على صفحة الهوم
+          var path = (location.pathname || "").toLowerCase();
+          var isHome = path.endsWith("/games/index") || path.endsWith("/games") || path === "/" || path === "";
+          if (!isHome || !('IntersectionObserver' in window)) return;
+
+          var nav = document.getElementById('siteNavbar');
+          var navH = (nav ? nav.offsetHeight : 70) + 10; // هامش بسيط
+
+          // دالة تفعيل رابط منتصف النافبار حسب الanchor
+          function setActive(id){
+            var links = document.querySelectorAll('.mid-nav .nav-link');
+            links.forEach(function(l){ l.classList.remove('active'); });
+            var target = document.querySelector('.mid-nav .nav-link[data-anchor="'+ id +'"]');
+            if (target) target.classList.add('active');
+          }
+
+          // راقب الأقسام
+          var sections = ['home','top','recent']
+            .map(function(id){ return document.getElementById(id); })
+            .filter(Boolean);
+
+          if (sections.length === 0) return;
+
+          var current = null;
+          var io = new IntersectionObserver(function(entries){
+            // اختَر القسم الأكثر ظهورًا
+            var visible = entries
+              .filter(function(e){ return e.isIntersecting; })
+              .sort(function(a,b){ return b.intersectionRatio - a.intersectionRatio; })[0];
+
+            if (visible){
+              var id = visible.target.id;
+              if (current !== id){
+                current = id;
+                setActive(id);
+              }
+            }
+          }, {
+            // اعتبر ارتفاع النافبار حتى لا يحجب بداية القسم
+            rootMargin: '-' + navH + 'px 0px -40% 0px',
+            threshold: [0.1, 0.25, 0.5, 0.75, 1]
+          });
+
+          sections.forEach(function(sec){ io.observe(sec); });
+
+          // لو بدأنا بhash مبدئي أو تغيّر الhash (fallback)
+          var initial = (location.hash || '#home').replace('#','').toLowerCase();
+          setActive(initial || 'home');
+          window.addEventListener('hashchange', function(){
+            var id = (location.hash || '#home').replace('#','').toLowerCase();
+            setActive(id || 'home');
+          });
+
         })();
     </script>
 

@@ -1,1 +1,39 @@
-﻿<h1>Moaz</h1>
+﻿@using GameStore.BLL.ModelVM.Game;
+@model List<UserGameModel>
+@{
+    ViewData["Title"] = "My Games";
+}
+
+<div class="container mt-4">
+    <h2>🎮 My Games</h2>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="alert alert-info mt-3">You hava no games</div>
+    }
+    else
+    {
+        
+        
+
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Game Title</th>
+                    <th>Category</th>
+                    <th style="width: 120px;">Download URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>$@item.CategoryName</td>
+                        <td>@item.DownloadUrl</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
