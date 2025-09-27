@@ -19,9 +19,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-
-    
-
     <style>
         html, body {
             height: 100%;
@@ -52,21 +49,18 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-            /* Hover */
             .navbar .nav-link:hover,
             .navbar .btn.nav-link:hover {
                 background-color: rgba(255,255,255,.12);
                 color: #fff;
             }
 
-            /* Focus (كيبورد) */
             .navbar .nav-link:focus-visible,
             .navbar .btn.nav-link:focus-visible {
                 outline: none;
                 box-shadow: 0 0 0 .2rem rgba(13,110,253,.35);
             }
 
-            /* Active / Pressed */
             .navbar .nav-link:active,
             .navbar .btn.nav-link:active,
             .navbar .nav-link.active,
@@ -76,7 +70,6 @@
                 color: #fff;
             }
 
-        /* خليه بس للتوسيط والمسافة بين الروابط الوسطى */
         .mid-nav {
             gap: .5rem;
         }
@@ -100,7 +93,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Centered: Home / Top / Recent -->
                     <ul class="navbar-nav mx-auto d-flex align-items-center gap-2 mid-nav">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Games" asp-action="Index" asp-fragment="home" data-anchor="home">Home</a>
@@ -144,7 +136,6 @@
 
                     </ul>
 
-                    <!-- Right side (unchanged) -->
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
@@ -172,7 +163,6 @@
 
 
         <script>
-            // تفعيل الرابط النشط حسب الـ hash لما تكون على صفحة الهوم
             (function () {
                 var path = (location.pathname || "").toLowerCase();
                 var isHome = path.endsWith("/games/index") || path.endsWith("/games") || path === "/" || path === "";
@@ -223,7 +213,7 @@
           function addPressed(e){
             const el = e.target.closest(selector);
             if(!el) return;
-            el.classList.add('active'); // يستعمل نفس ستايل الـ active
+            el.classList.add('active');
           }
           function removePressed(){
             document.querySelectorAll(selector).forEach(el => el.classList.remove('active'));
@@ -236,15 +226,15 @@
 
     <script>
         (function () {
-          // اشتغل بس على صفحة الهوم
+          
           var path = (location.pathname || "").toLowerCase();
           var isHome = path.endsWith("/games/index") || path.endsWith("/games") || path === "/" || path === "";
           if (!isHome || !('IntersectionObserver' in window)) return;
 
           var nav = document.getElementById('siteNavbar');
-          var navH = (nav ? nav.offsetHeight : 70) + 10; // هامش بسيط
+          var navH = (nav ? nav.offsetHeight : 70) + 10;
 
-          // دالة تفعيل رابط منتصف النافبار حسب الanchor
+          
           function setActive(id){
             var links = document.querySelectorAll('.mid-nav .nav-link');
             links.forEach(function(l){ l.classList.remove('active'); });
@@ -252,7 +242,7 @@
             if (target) target.classList.add('active');
           }
 
-          // راقب الأقسام
+          
           var sections = ['home','top','recent']
             .map(function(id){ return document.getElementById(id); })
             .filter(Boolean);
@@ -261,7 +251,7 @@
 
           var current = null;
           var io = new IntersectionObserver(function(entries){
-            // اختَر القسم الأكثر ظهورًا
+            
             var visible = entries
               .filter(function(e){ return e.isIntersecting; })
               .sort(function(a,b){ return b.intersectionRatio - a.intersectionRatio; })[0];
@@ -274,7 +264,7 @@
               }
             }
           }, {
-            // اعتبر ارتفاع النافبار حتى لا يحجب بداية القسم
+            
             rootMargin: '-' + navH + 'px 0px -40% 0px',
             threshold: [0.1, 0.25, 0.5, 0.75, 1]
           });

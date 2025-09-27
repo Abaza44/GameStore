@@ -25,7 +25,7 @@ namespace GameStore.DAL.Repo.Implementations
         {
              return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)
                            .Include(ug => ug.Game)
-                           .Select(ug => ug.Game) // Select only the Game entities
+                           .Select(ug => ug.Game)
                            .ToList();
         }
 
@@ -34,7 +34,7 @@ namespace GameStore.DAL.Repo.Implementations
             return this._context.UserGames.AsNoTracking().Where(ug => ug.UserId == userId)
                           .Include(ug => ug.Game)
                           .ThenInclude(g => g.Category)
-                          .Select(ug => ug.Game) // Select only the Game entities
+                          .Select(ug => ug.Game)
                           .ToList();
         }
 

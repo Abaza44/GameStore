@@ -28,8 +28,7 @@ namespace GameStore.PL.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous] // أي حد يقدر يشوف الألعاب
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var category = _categoryService.GetAll();

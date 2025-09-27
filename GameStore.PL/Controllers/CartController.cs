@@ -20,9 +20,6 @@ namespace GameStore.PL.Controllers
             _gameService = gameService;
         }
 
-
-
-
         [HttpGet]
         public IActionResult Index()
         {

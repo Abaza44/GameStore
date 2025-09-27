@@ -24,7 +24,7 @@ namespace GameStore.PL.Controllers
         [HttpGet]
         public IActionResult Register() => View();
 
-        //=======================Regester======================
+        //=======================Register======================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register
@@ -56,11 +56,9 @@ namespace GameStore.PL.Controllers
             return RedirectToAction("Index", "Games");
         }
 
-        // 👇 عرض صفحة تسجيل الدخول
         [HttpGet]
         public IActionResult Login() => View();
 
-        // 👇 معالجة تسجيل الدخول
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string email, string password)
@@ -76,7 +74,6 @@ namespace GameStore.PL.Controllers
             return RedirectToAction("Index", "Games");
         }
 
-        // 👇 تسجيل الخروج
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

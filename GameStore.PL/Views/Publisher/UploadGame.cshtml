@@ -2,11 +2,11 @@
 @model GameCreateModel
 
 <style>
-    /* ????? ??? ??????? ???? */
+    
     .compact-wrap {
         max-width: 720px;
     }
-    /* ??? ???? ?????? */
+
     .form-card {
         border: none;
         border-radius: .75rem;
@@ -141,7 +141,7 @@
 
 @section Scripts {
     <script>
-        // ?????? ?????? ??????
+        
         (function () {
             const input = document.getElementById('posterInput');
             const preview = document.getElementById('posterPreview');
@@ -155,7 +155,7 @@
             });
         })();
 
-        // Bootstrap client-side validation (?????)
+        // Bootstrap client-side validation
         (function () {
             const forms = document.querySelectorAll('.needs-validation');
             Array.prototype.slice.call(forms).forEach(form => {
