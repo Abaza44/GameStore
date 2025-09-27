@@ -34,8 +34,8 @@ namespace GameStore.PL.Controllers
         {
             var category = _categoryService.GetAll();
             var games = await _gameService.GetApprovedAsync();
-            var topGame = await _gameService.GetTopAsync(4);
-            var recentGame = await _gameService.GetRecentAsync(4);
+            var topGame = await _gameService.GetTopAsync(3);
+            var recentGame = await _gameService.GetRecentAsync(3);
             var GroupedGame = new List<(string, IEnumerable<GameViewModel>)>();
             GroupedGame.Add(("Top Games", topGame));
             GroupedGame.Add(("Recent Games", recentGame));
@@ -91,7 +91,7 @@ namespace GameStore.PL.Controllers
             if (User.IsInRole("Publisher"))
                 return RedirectToAction("MyGames", "Publisher");
             else if (User.IsInRole("Admin"))
-                return RedirectToAction("ReviewGames", "Admin");
+                return RedirectToAction("ManageGames", "Admin");
 
             return RedirectToAction("Index");
         }

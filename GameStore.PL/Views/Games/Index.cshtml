@@ -9,7 +9,6 @@
 }
 
 <style>
-    /* Smooth scroll + تعويض النافبار */
     html {
         scroll-behavior: smooth;
     }
@@ -18,7 +17,7 @@
         scroll-margin-top: 90px;
     }
 
-    /* ====== Layout & Utilities ====== */
+
     .page-hero {
         background: linear-gradient(135deg, #0d6efd11 0%, #6610f211 100%);
         border-radius: 1rem;
@@ -31,7 +30,7 @@
         top: 84px;
     }
 
-    /* ====== Card Styling ====== */
+    
     .game-card {
         border: none;
         border-radius: 1rem;
@@ -86,7 +85,7 @@
         color: #0d6efd;
     }
 
-    /* ====== Buttons micro-interaction ====== */
+    
     .btn-press {
         transform: translateZ(0);
         transition: transform .08s ease;
@@ -96,7 +95,7 @@
             transform: translateY(1px);
         }
 
-    /* ====== Reveal on scroll ====== */
+    
     .reveal {
         opacity: 0;
         transform: translateY(12px);
@@ -107,6 +106,36 @@
             opacity: 1;
             transform: none;
         }
+
+
+    
+    .btn-apply {
+        background-color: #1f2937;
+        border-color: #1f2937;
+        color: #e5e7eb;
+    }
+
+        .btn-apply:hover {
+            background-color: #2a3649;
+            border-color: #2a3649;
+            color: #ffffff;
+        }
+
+        .btn-apply:focus {
+            box-shadow: 0 0 0 .2rem rgba(255,255,255,.08);
+        }
+
+        .btn-apply:active {
+            transform: translateY(1px);
+        }
+
+        .btn-apply:disabled {
+            opacity: .65;
+            pointer-events: none;
+        }
+
+
+    
 </style>
 
 <div class="container mt-4">
@@ -122,8 +151,9 @@
         <!-- Hero (anchor: home) -->
         <div id="home" class="page-hero anchor-offset d-flex flex-wrap gap-2 justify-content-between align-items-center">
             <div>
-                <h1 class="mb-1">🎮 Welcome To Our Game Store</h1>
-                <div class="text-muted">Discover, filter, and add your favorite titles to cart.</div>
+                <h1 class="mb-1 text-center w-100">🎮 Welcome To Our Game Store</h1>
+
+                @* <div class="text-muted auto-text" >Discover, filter, and add your favorite titles to cart.</div> *@
             </div>
             <!-- Mobile filter button -->
             <button class="btn btn-outline-primary btn-sm d-lg-none filter-toggle" type="button"
@@ -169,7 +199,8 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary w-100 btn-press">Apply</button>
+                                <button type="submit" class="btn btn-apply w-100 btn-press">Apply</button>
+
                             </form>
                         </div>
                     </div>
@@ -230,7 +261,7 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-2 reveal @(anchorId != null ? "anchor-offset" : "")"
                          @(anchorId != null ? new { id = anchorId } : null)>
-                         
+
                         <h2 class="h4 mb-0">@group.Item1</h2>
                         <span class="text-muted small">@group.Item2.Count() Game(s)</span>
                     </div>
@@ -256,13 +287,13 @@
 
                                             @if (User.IsInRole("User"))
                                             {
-                                                 <form asp-controller="Cart" asp-action="Add" method="post" class="m-0">
+                                                <form asp-controller="Cart" asp-action="Add" method="post" class="m-0">
                                                     @Html.AntiForgeryToken()
                                                     <input type="hidden" name="gameId" value="@game.Id" />
                                                     <button type="submit" class="btn btn-success btn-sm btn-press">
                                                         <i class="fa-solid fa-cart-plus"></i> <span class="d-none d-sm-inline">Add</span>
                                                     </button>
-                                                </form> 
+                                                </form>
                                                 @* @if (Model.Item3.Items.Any(a => a.GameId == game.Id))
                                                 {
                                                     @Html.Partial("_RemoveFromCartButtonPartial", game)

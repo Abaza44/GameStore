@@ -54,7 +54,7 @@ namespace GameStore.DAL.Repo.Implementations
         public IEnumerable<Game> GetAllGames() => _context.Games.AsNoTracking().ToList();
         public IEnumerable<Game> GetTopGames(int n)
         {
-            n = Math.Min(n, GetGamesCount());
+            n = Math.Min(3, GetGamesCount());
             return _context.Games.AsNoTracking().Where(a=>a.Status==Enums.GameStatus.Approved)
                    .OrderByDescending(g => g.Count)
                    .Take(n)
@@ -62,7 +62,7 @@ namespace GameStore.DAL.Repo.Implementations
         }
         public IEnumerable<Game> GetRecentGames(int n)
         {
-            n = Math.Min(n, GetGamesCount());
+            n = Math.Min(3, GetGamesCount());
             return _context.Games.AsNoTracking().Where(a => a.Status == Enums.GameStatus.Approved)
                    .OrderByDescending(g => g.CreatedAt)
                    .Take(n)

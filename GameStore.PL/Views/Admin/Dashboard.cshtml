@@ -15,8 +15,8 @@
             <th>Full Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Change Role</th>
-            <th>Delete</th>
+            @* <th>Change Role</th> *@
+            @* <th>Delete</th> *@
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@
                 <td>@user.FullName</td>
                 <td>@user.Email</td>
                 <td>@user.Role</td>
-                <td>
+                @* <td>
                     <form asp-action="ChangeRole" method="post" class="d-flex">
                         <input type="hidden" name="userId" value="@user.ID" />
                         <select name="role" class="form-select form-select-sm me-2">
@@ -37,8 +37,8 @@
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">Save</button>
                     </form>
-                </td>
-                <td>
+                </td> *@
+                @* <td>
                     <form asp-action="DeleteUser" method="post">
                         <input type="hidden" name="userId" value="@user.ID" />
                         <button type="submit" class="btn btn-sm btn-danger"
@@ -46,7 +46,7 @@
                             Delete
                         </button>
                     </form>
-                </td>
+                </td> *@
             </tr>
         }
     </tbody>
